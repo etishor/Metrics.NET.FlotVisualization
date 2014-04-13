@@ -1,7 +1,25 @@
 {
   "name": "Metrics.NET-Flot-Visualization",
   "description": "Metrics.NET Visualization Appplication based on jquery.flot.js",
-  "version": "0.0.7-alpha",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/etishor/Metrics.NET.FlotVisualization.git"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "build": "grunt build"
+  },
+  "keywords": [
+    "metrics",
+    "charts",
+    "metrics.net",
+    "visualization"
+  ],
+  "author": {
+    "name": "Iulian Margarintescu",
+    "email": "etishor@gmail.com"
+  },
+  "version": "0.0.10-alpha",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
