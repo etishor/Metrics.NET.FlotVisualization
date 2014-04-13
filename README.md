@@ -3,7 +3,8 @@ Metrics.NET.FlotVisualization
 
 [![Build status](https://ci.appveyor.com/api/projects/status/a1bamjqhttq745tf)](https://ci.appveyor.com/project/etishor/metrics-net-flotvisualization)
 [![Build Status](https://api.travis-ci.org/etishor/Metrics.NET.FlotVisualization.svg)](https://travis-ci.org/etishor/Metrics.NET.FlotVisualization)
-[![NPM dependencies](https://david-dm.org/etishor/Metrics.NET.FlotVisualization.png)](https://github.com/etishor/Metrics.NET.FlotVisualization)
+[![NPM dependencies](https://david-dm.org/etishor/Metrics.NET.FlotVisualization.png)](https://david-dm.org/etishor/Metrics.NET.FlotVisualization)
+[![NPM devDependencies](https://david-dm.org/etishor/Metrics.NET.FlotVisualization/dev-status.png)](https://david-dm.org/etishor/Metrics.NET.FlotVisualization#info=devDependencies)
 
 JavaScript visualization app for [Metrics.NET](https://github.com/etishor/Metrics.NET) based on the excelent charting capabilities of [FlotCharts](http://www.flotcharts.org/)
 
