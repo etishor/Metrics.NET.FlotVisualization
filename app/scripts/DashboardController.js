@@ -3,7 +3,7 @@
 
 	var alertShown = false;
 
-	function DashboardController($scope, $interval, $http, metricsEndpoint, metricsService) {
+	function DashboardController($scope, $interval, $http, $window, metricsEndpoint, metricsService) {
 		var updatesInterval;
 
 		function startUpdates() {
@@ -24,7 +24,7 @@
 				stopUpdates();
 				if (!alertShown) {
 					alertShown = true;
-					alert("Error reading JSON data from [" + metricsEndpoint + "]. " + reason);
+					$window.alert('Error reading JSON data from [' + metricsEndpoint + ']. ' + reason);
 				}
 			});
 		}
