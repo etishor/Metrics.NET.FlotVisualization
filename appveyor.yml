@@ -22,3 +22,4 @@ test_script:
   - npm --version
   - ps: grunt --no-color # PowerShell
   - cmd: grunt --no-color
+  
