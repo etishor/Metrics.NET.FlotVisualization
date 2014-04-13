@@ -1,5 +1,9 @@
 Metrics.NET.FlotVisualization
 =============================
+
+[![Build Status](https://api.travis-ci.org/etishor/Metrics.NET.FlotVisualization.svg)](https://travis-ci.org/etishor/Metrics.NET.FlotVisualization)
+
+
 JavaScript visualization app for [Metrics.NET](https://github.com/etishor/Metrics.NET) based on the excelent charting capabilities of [FlotCharts](http://www.flotcharts.org/)
 
 ###What is it
