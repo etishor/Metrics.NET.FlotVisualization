@@ -1,7 +1,7 @@
 Metrics.NET.FlotVisualization
 =============================
 
-[![Build status](https://ci.appveyor.com/api/projects/status/a1bamjqhttq745tf)](https://ci.appveyor.com/project/etishor/metrics-net-flotvisualization)
+[![Build status](https://ci.appveyor.com/api/projects/status/abost1rrml5bkior)](https://ci.appveyor.com/project/etishor/metrics-net-flotvisualization)
 [![Build Status](https://api.travis-ci.org/etishor/Metrics.NET.FlotVisualization.svg)](https://travis-ci.org/etishor/Metrics.NET.FlotVisualization)
 [![NPM dependencies](https://david-dm.org/etishor/Metrics.NET.FlotVisualization.png)](https://david-dm.org/etishor/Metrics.NET.FlotVisualization)
 [![NPM devDependencies](https://david-dm.org/etishor/Metrics.NET.FlotVisualization/dev-status.png)](https://david-dm.org/etishor/Metrics.NET.FlotVisualization#info=devDependencies)
