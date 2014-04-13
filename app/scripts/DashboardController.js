@@ -1,67 +1,75 @@
 ﻿(function (_, metrics) {
-    'use strict';
+	'use strict';
 
-    function DashboardController($scope, $interval, $http, metricsEndpoint, metricsService) {
-        var updatesInterval;
+	var alertShown = false;
 
-        function startUpdates() {
-            updatesInterval = $interval(updateMetrics, 500);
-        }
+	function DashboardController($scope, $interval, $http, metricsEndpoint, metricsService) {
+		var updatesInterval;
 
-        function stopUpdates() {
-            if (updatesInterval) {
-                $interval.cancel(updatesInterval);
-            }
-        }
+		function startUpdates() {
+			updatesInterval = $interval(updateMetrics, 500);
+		}
 
-        function updateMetrics() {
-            $http.get(metricsEndpoint).success(function (data) {
-                metricsService.update(data);
-                updateDashboard();
-            });
-        }
+		function stopUpdates() {
+			if (updatesInterval) {
+				$interval.cancel(updatesInterval);
+			}
+		}
 
-        function updateDashboard() {
-            $scope.metricNames = metricsService.getSeriesNames();
+		function updateMetrics() {
+			$http.get(metricsEndpoint).success(function (data) {
+				metricsService.update(data);
+				updateDashboard();
+			}).error(function (reason) {
+				stopUpdates();
+				if (!alertShown) {
+					alertShown = true;
+					alert("Error reading JSON data from [" + metricsEndpoint + "]. " + reason);
+				}
+			});
+		}
 
-            _($scope.charts).each(function (c) {
-                c.update(metricsService);
-            });
-        }
+		function updateDashboard() {
+			$scope.metricNames = metricsService.getSeriesNames();
 
-        $scope.createChart = function () {
-            if ($scope.currentChart.hasMetrics()) {
-                $scope.charts.splice(0, 0, $scope.currentChart);
-                $scope.currentChart = new metrics.Chart();
-            }
-        };
+			_($scope.charts).each(function (c) {
+				c.update(metricsService);
+			});
+		}
 
-        $scope.createChartFromMetric = function (name) {
-            $scope.charts.splice(0, 0, new metrics.Chart(name, [name]));
-        };
+		$scope.createChart = function () {
+			if ($scope.currentChart.hasMetrics()) {
+				$scope.charts.splice(0, 0, $scope.currentChart);
+				$scope.currentChart = new metrics.Chart();
+			}
+		};
 
-        $scope.addToChart = function () {
-            $scope.currentChart.addMetric($scope.metricSearch);
-            $scope.metricSearch = '';
-        };
+		$scope.createChartFromMetric = function (name) {
+			$scope.charts.splice(0, 0, new metrics.Chart(name, [name]));
+		};
 
-        $scope.removeChart = function (chart) {
-            $scope.charts.splice($scope.charts.indexOf(chart), 1);
-        };
+		$scope.addToChart = function () {
+			$scope.currentChart.addMetric($scope.metricSearch);
+			$scope.metricSearch = '';
+		};
 
-        $scope.metricSearch = '';
+		$scope.removeChart = function (chart) {
+			$scope.charts.splice($scope.charts.indexOf(chart), 1);
+		};
 
-        $scope.currentChart = new metrics.Chart();
+		$scope.metricSearch = '';
 
-        $scope.charts = [new metrics.Chart('CPU Usage', ['System.CPU Usage'])];
+		$scope.currentChart = new metrics.Chart();
 
-        $scope.$on('$destroy', function () {
-            stopUpdates();
-        });
+		$scope.charts = [new metrics.Chart('CPU Usage', ['System.CPU Usage'])];
 
-        startUpdates();
-    }
+		$scope.$on('$destroy', function () {
+			stopUpdates();
+		});
 
-    $.extend(true, this, { metrics: { DashboardController: DashboardController } });
+		startUpdates();
+	}
+
+	$.extend(true, this, { metrics: { DashboardController: DashboardController } });
 
 }).call(this, this._, this.metrics);
