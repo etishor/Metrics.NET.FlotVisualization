@@ -15,10 +15,10 @@ install:
   - npm install
   - bower install
 
-build: on
+build: off
   
 test_script:
   - node --version
   - npm --version
-  - ps: grunt test --no-color # PowerShell
-  - cmd: grunt test --no-color
+  - ps: grunt --no-color # PowerShell
+  - cmd: grunt --no-color
