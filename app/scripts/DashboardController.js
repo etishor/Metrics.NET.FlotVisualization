@@ -1,7 +1,8 @@
-﻿(function (_, metrics) {
+﻿(function (_, moment, metrics) {
 	'use strict';
 
-	var alertShown = false;
+	var alertShown = false,
+		registry = new metrics.Registry();
 
 	function DashboardController($scope, $interval, $http, $window, metricsEndpoint, metricsService) {
 		var updatesInterval;
@@ -18,6 +19,7 @@
 
 		function updateMetrics() {
 			$http.get(metricsEndpoint).success(function (data) {
+				registry.update(data);
 				metricsService.update(data);
 				updateDashboard();
 			}).error(function (reason) {
@@ -61,7 +63,16 @@
 
 		$scope.currentChart = new metrics.Chart();
 
-		$scope.charts = [new metrics.Chart('CPU Usage', ['System.CPU Usage'])];
+		$scope.charts = []; // [new metrics.Chart('CPU Usage', ['System.CPU Usage'])];
+
+		$scope.gauge = new metrics.Gauge('test');
+
+		$scope.metrics = registry.getMetrics();
+
+		$interval(function () {
+			var value = Math.random() * 100;
+			$scope.gauge.update(value, moment());
+		}, 100);
 
 		$scope.$on('$destroy', function () {
 			stopUpdates();
@@ -72,4 +83,4 @@
 
 	$.extend(true, this, { metrics: { DashboardController: DashboardController } });
 
-}).call(this, this._, this.metrics);
+}).call(this, this._, this.moment, this.metrics);

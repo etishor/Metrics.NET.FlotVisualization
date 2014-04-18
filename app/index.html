@@ -11,7 +11,7 @@
     <link href="styles/main.css" rel="stylesheet" />
     <!-- endbuild -->
     <script>
-        window.metricsEndpoint = 'http://localhost:1234/json';
+        window.metricsEndpoint = 'http://localhost:1234/metrics/json';
     </script>
 </head>
 <body id="ng-app" ng-app="MainModule">
@@ -36,7 +36,9 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-flot/angular-flot.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
     <!-- endbower -->
+    <script src="scripts/Metrics/Gauge.js"></script>
     <script src="scripts/Metrics/ValueSeries.js"></script>
     <script src="scripts/Metrics/MetricSet.js"></script>
     <script src="scripts/Metrics/Meter.js"></script>

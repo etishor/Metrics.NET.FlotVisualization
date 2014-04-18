@@ -1,6 +1,6 @@
 ﻿<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 sidebar">
+<!--        <div class="col-sm-3 sidebar">
             <form role="form">
                 <div class="form-group">
                     <label for="newMetrics">Add Chart With metrics</label>
@@ -21,14 +21,31 @@
                     <a href="javascript:void(0)" ng-click="createChartFromMetric(name)">{{name}}</a>
                 </li>
             </ul>
-        </div>
+        </div>-->
         <div class="col-sm-9 main">
-            <ul class="list-inline">
-                <li ng-repeat="chart in charts" class="chart" style="width:550px;height:200px;">
+            <div class="thumbnail" ng-repeat="metric in metrics">
+               <flot dataset="metric.chart.data" options="metric.chart.options" 
+                     width="{{gauge.options.width}}" height="{{gauge.options.height}}"></flot>
+                <div class="caption">
+                    <p>{{metric.name}}</p>
+                </div>
+            </div>
+            <!--<ul class="list-inline">
+                <!--<li class="chart">
+                    <p>{{gauge.chart.name}} <a href="javascript:void(0)" ng-click="removeChart(chart)">delete</a>
+                        {{gauge.lastUpdate.format("hh:mm:ss")}} 
+                    </p>
+                    <flot dataset="gauge.chart.data" options="gauge.chart.options" 
+                        width="{{gauge.options.width}}" height="{{gauge.options.height}}"></flot>
+                </li>-->
+
+               
+
+                <!--<li ng-repeat="chart in charts" class="chart" style="width: 550px; height: 200px;">
                     <h4>{{chart.name}} <a href="javascript:void(0)" ng-click="removeChart(chart)">delete</a> </h4>
                     <flot dataset="chart.data" options="chart.options" width="400" height="150"></flot>
-                </li>
-            </ul>
+                </li>-->
+            </ul>-->
         </div>
     </div>
 </div>
