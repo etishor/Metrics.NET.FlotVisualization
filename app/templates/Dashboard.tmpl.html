@@ -1,13 +1,9 @@
 ﻿<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-9 main">
-            <div class="thumbnail" ng-repeat="metric in metrics">
-               <flot dataset="metric.chart.data" options="metric.chart.options" 
-                     width="{{gauge.options.width}}" height="{{gauge.options.height}}"></flot>
-                <div class="caption">
-                    <p>{{metric.name}}</p>
-                </div>
-            </div>
+        <div class="col-md-6 chartContainer" ng-repeat="metric in metrics">
+            <p>{{metric.name}} {{metric.unit}}</p>
+            <flot class="chart" dataset="metric.chart.data" options="metric.chart.options" 
+                 width="{{gauge.options.width}}" height="{{gauge.options.height}}"></flot>
         </div>
     </div>
 </div>

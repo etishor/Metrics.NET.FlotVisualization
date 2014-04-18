@@ -24,10 +24,12 @@
 				updateDashboard();
 			}).error(function (reason) {
 				stopUpdates();
+				/*
 				if (!alertShown) {
 					alertShown = true;
 					$window.alert('Error reading JSON data from [' + metricsEndpoint + ']. ' + reason);
 				}
+				*/
 			});
 		}
 

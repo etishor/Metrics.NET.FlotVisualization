@@ -79,7 +79,13 @@
 
 		this.updateValues = function (values) {
 			this.options.xaxis.max = values.numberOfValues();
-			this.data = [{ data: values.getLast() }];
+			this.data = [{ 
+				label: 'test',
+				yaxis : {
+					label: 'test'
+				},
+				data: values.getLast() 
+			}];
 		};
 	}
 
