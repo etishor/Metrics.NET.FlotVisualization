@@ -69,11 +69,6 @@
 
 		$scope.metrics = registry.getMetrics();
 
-		$interval(function () {
-			var value = Math.random() * 100;
-			$scope.gauge.update(value, moment());
-		}, 100);
-
 		$scope.$on('$destroy', function () {
 			stopUpdates();
 		});

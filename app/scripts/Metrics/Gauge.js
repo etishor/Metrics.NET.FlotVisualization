@@ -1,4 +1,4 @@
-﻿(function ($, _) {
+﻿(function ($, _, moment) {
 	'use strict';
 
 	function Registry() {
@@ -7,7 +7,7 @@
 		this.lastUpdate = null;
 
 		this.update = function (data) {
-			this.lastUpdate = data.lastUpdate;
+			this.lastUpdate = moment(data.lastUpdate);
 			var existing = _(gauges).map('name');
 			_(data.Gauges).each(function (value, name) {
 				if (!_(existing).contains(name)) {
@@ -110,4 +110,4 @@
 
 	$.extend(true, this, { metrics: { Gauge: Gauge, Registry : Registry } });
 
-}).call(this, this.jQuery, this._);
+}).call(this, this.jQuery, this._, this.moment);
