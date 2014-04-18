@@ -1,8 +1,7 @@
 ﻿(function (_, moment, metrics) {
 	'use strict';
 
-	var alertShown = false,
-		registry = new metrics.Registry();
+	var registry = new metrics.Registry();
 
 	function DashboardController($scope, $interval, $http, $window, metricsEndpoint, metricsService) {
 		var updatesInterval;
@@ -22,7 +21,7 @@
 				registry.update(data);
 				metricsService.update(data);
 				updateDashboard();
-			}).error(function (reason) {
+			}).error(function () {
 				stopUpdates();
 				/*
 				if (!alertShown) {
