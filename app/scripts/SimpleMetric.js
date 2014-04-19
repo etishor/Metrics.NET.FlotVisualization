@@ -21,6 +21,10 @@
 		this.getCharts = function () {
 			return [this.chart];
 		};
+
+		this.toggle = function (value) {
+			this.chart.toggle(value);
+		};
 	}
 
 	$.extend(true, this, { metrics: { SimpleMetric: SimpleMetric } });

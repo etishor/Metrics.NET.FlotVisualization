@@ -38,6 +38,15 @@
 			this.rateChart.updateValues([mean, rate1, rate5, rate15]);
 		};
 
+		this.toggle = function (value) {
+			this.rateChart.toggle(value);
+		};
+
+		this.isVisible = function () {
+			return this.rateChart.isVisible() ||
+				this.countChart.isVisible();
+		};
+
 		this.getCharts = function () {
 			return [this.countChart, this.rateChart];
 		};

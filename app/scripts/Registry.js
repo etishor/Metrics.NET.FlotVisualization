@@ -10,30 +10,68 @@
 			counters = [],
 			meters = [],
 			histograms = [],
-			timers = [];
+			timers = [],
+			meta = [
+				{ name: 'Timers', data: timers },
+				{ name: 'Meters', data: meters },
+				{ name: 'Counters', data: counters },
+				{ name: 'Gauges', data: gauges },
+				{ name: 'Histograms', data: histograms }
+			];
+		
+		this.showAll = function (metrics) {
+			_(metrics).each(function (m) {
+				m.toggle(true);
+			});
+		};
+
+		this.hideAll = function (metrics) {
+			_(metrics).each(function (m) {
+				m.toggle(false);
+			});
+		};
 
 		this.lastUpdate = moment(0);
 		this.updateError = null;
-
-		function updateValues() {
-			$http.get(endpoint).success(function (data) {
-				update(data);
-				if (interval > 0) {
-					timer = $timeout(updateValues, interval);
-				}
-			}).error(function () {
-				self.updateError = 'Error reading metric data from ' + endpoint;
-			});
-		}
-
-		updateValues();
-
+		
 		this.setUpdateInterval = function (updateInterval) {
 			interval = updateInterval;
 		};
 
 		this.clearData = function () {
 			gauges = [];
+			counters = [];
+			meters = [];
+			histograms = [];
+			timers = [];
+		};
+
+		this.getMetricsMeta = function () {
+			return meta;
+		};
+
+		this.getGauges = function () { return gauges; };
+		this.getCounters = function () { return counters; };
+		this.getMeters = function () { return meters; };
+		this.getHistograms = function () { return histograms; };
+		this.getTimers = function () { return timers; };
+
+		this.hideGauges = function () {
+			_(gauges).each(function (g) {
+				g.chart.isVisible = false;
+			});
+		};
+
+		this.hideCounters = function () {
+			_(counters).each(function (c) {
+				c.chart.isVisible = false;
+			});
+		};
+
+		this.hideMeters = function () {
+			_(meters).each(function (m) {
+				m.toggle(false);
+			});
 		};
 
 		function updateMetrics(InstanceType, currentMetrics, newData, units) {
@@ -56,16 +94,31 @@
 			self.lastUpdate = moment(data.lastUpdate);
 
 			updateMetrics(metrics.Timer, timers, data.Timers, data.Units.Timers);
-			//updateMetrics(metrics.Histogram, histograms, data.Histograms, data.Units.Histograms);
-			//updateMetrics(metrics.Meter, meters, data.Meters, data.Units.Meters);
-			//updateMetrics(metrics.SimpleMetric, counters, data.Counters, data.Units.Counters);
-			//updateMetrics(metrics.SimpleMetric, gauges, data.Gauges, data.Units.Gauges);
+			updateMetrics(metrics.Histogram, histograms, data.Histograms, data.Units.Histograms);
+			updateMetrics(metrics.Meter, meters, data.Meters, data.Units.Meters);
+			updateMetrics(metrics.SimpleMetric, counters, data.Counters, data.Units.Counters);
+			updateMetrics(metrics.SimpleMetric, gauges, data.Gauges, data.Units.Gauges);
 		}
 
 		this.getCharts = function () {
-			//return _(meters).union(counters).union(gauges).value();
 			return charts;
 		};
+
+		function updateValues() {
+			$http.get(endpoint).success(function (data) {
+				update(data);
+				if (timer === null) {
+					self.showAll(timers);
+				}
+				if (interval > 0) {
+					timer = $timeout(updateValues, interval);
+				}
+			}).error(function () {
+				self.updateError = 'Error reading metric data from ' + endpoint;
+			});
+		}
+
+		updateValues();
 	}
 
 	$.extend(true, this, { metrics: { Registry: Registry } });

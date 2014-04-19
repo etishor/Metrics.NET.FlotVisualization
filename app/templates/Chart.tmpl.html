@@ -1,6 +1,9 @@
 ﻿<div class="chart-container">
-    <div class="chart" style="height:100%;width:100%;"></div>
-    
-  <!--  <flot class="chart" dataset="metric.chart.data" options="metric.chart.options"></flot>
-    <p class="chart-title">{{metric.name}} {{metric.unit}}</p>-->
+    <div class="chart" style="height:90%;width:100%;"></div>
+    <a title="remove" href="javascript:void(0)" ng-click="chart.toggle(false)" class="close glyphicon glyphicon-remove-circle"></a>
+    <ul class="list-inline series-options">
+        <li ng-repeat="label in chart.labels">
+            <label><input type="checkbox" />{{label}}</label>
+        </li>
+    </ul>
 </div>

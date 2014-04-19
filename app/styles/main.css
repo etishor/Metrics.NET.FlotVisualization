@@ -4,6 +4,20 @@
     padding-bottom: 20px;
 }
 
+label.checkbox
+{
+    font-weight:normal;
+    font-size:12px;
+    white-space:nowrap;
+    margin-left: 8px;
+    margin-right: 6px;
+}
+
+.checkbox
+{
+    cursor: pointer;
+}
+
 .chart-container
 {
     height: 200px;
@@ -11,9 +25,34 @@
     margin: 15px auto 15px auto;
     border: 1px solid #ddd;
     background: #fff;
-    background: linear-gradient(#f6f6f6 0, #fff 50px);
+    background: linear-gradient(#eee 0, #fff 80px);
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
+    .chart-container .close
+    {
+        position:absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 14px;
+        opacity: 0.08;
+        color:red;
+    }
+
+        .chart-container .close:hover
+        {
+            opacity: 1;
+        }
+
+    .chart-container .series-options
+    {
+        text-align: center;
+        width: 100%;
+    }
+        .chart-container .series-options label
+        {
+            font-weight:normal;
+        }
+
 
 .axisLabel
 {

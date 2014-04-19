@@ -7,12 +7,33 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Metrics.NET Dashboard</a>
+            <a class="navbar-brand" href="javascript:void(0)">Metrics.NET Dashboard</a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">            
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" ng-repeat="metric in registry.getMetricsMeta()">
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">{{metric.name}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">
+                            <div>
+                                <a href="javascript:void(0)"
+                                    ng-click="registry.showAll(metric.data)">show all</a>
+                                &nbsp|&nbsp;
+                                <a href="javascript:void(0)"
+                                    ng-click="registry.hideAll(metric.data)">hide all</a>
+                            </div>
+                        </li>
+                        <li ng-repeat="chart in metric.data">
+                            <label check-box-menu class="checkbox">
+                                <input type="checkbox" ng-checked="chart.isVisible()"
+                                    ng-click="chart.toggle()" />{{chart.name}}</label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Update {{registry.lastUpdate.format('HH:mm:ss')}} <b class="caret"></b></a>
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Last Update {{registry.lastUpdate.format('HH:mm:ss')}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="javascript:void(0)" ng-click="setInterval(100);">Every 100ms</a></li>
                         <li><a href="javascript:void(0)" ng-click="setInterval(500);">Every 500ms</a></li>
@@ -30,4 +51,3 @@
         </div>
     </div>
 </div>
-

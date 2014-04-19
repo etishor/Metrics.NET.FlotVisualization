@@ -21,6 +21,15 @@
 		this.getCharts = function () {
 			return _(meter.getCharts()).union(histogram.getCharts()).value();
 		};
+
+		this.toggle = function (value) {
+			meter.toggle(value);
+			histogram.toggle(value);
+		};
+
+		this.isVisible = function () {
+			return meter.isVisible() || histogram.isVisible();
+		};
 	}
 
 	$.extend(true, this, { metrics: { Timer: Timer } });

@@ -3,7 +3,8 @@
 
 	function Chart(name, unit, maxValues) {
 		var self = this,
-			isSingleSeries = true;
+			isSingleSeries = true,
+			visible = false;
 
 		if (_(name).isString()) {
 			this.name = name;
@@ -31,6 +32,18 @@
 				shadowSize: isSingleSeries ? 2 : 1,
 				color: isSingleSeries ? 3 : undefined
 			}
+		};
+
+		this.toggle = function (value) {
+			if (value === undefined) {
+				visible = !visible;
+			} else {
+				visible = value;
+			}
+		};
+
+		this.isVisible = function () {
+			return visible;
 		};
 
 		this.data = [];
