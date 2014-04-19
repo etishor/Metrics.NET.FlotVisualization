@@ -1,4 +1,4 @@
-﻿(function (_, moment, metrics) {
+﻿(function () {
 	'use strict';
 
 	function DashboardController($scope, registry) {
@@ -7,4 +7,4 @@
 
 	$.extend(true, this, { metrics: { DashboardController: DashboardController } });
 
-}).call(this, this._, this.moment, this.metrics);
+}).call(this);

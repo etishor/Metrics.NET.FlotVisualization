@@ -5,8 +5,12 @@
 		var self = this,
 			interval = 500,
 			timer = null,
+			charts = [],
 			gauges = [],
-			counters = [];			
+			counters = [],
+			meters = [],
+			histograms = [],
+			timers = [];
 
 		this.lastUpdate = moment(0);
 		this.updateError = null;
@@ -23,36 +27,44 @@
 		}
 
 		updateValues();
-		
+
 		this.setUpdateInterval = function (updateInterval) {
 			interval = updateInterval;
 		};
 
 		this.clearData = function () {
-			gauges = []
+			gauges = [];
 		};
 
-		function updateSimpleMetrics(currentMetrics, newData, units, lastUpdate) {
+		function updateMetrics(InstanceType, currentMetrics, newData, units) {
 			var existing = _(currentMetrics).map('name');
 			_(newData).each(function (value, name) {
 				if (!_(existing).contains(name)) {
-					currentMetrics.push(new metrics.SimpleMetric(name, units[name]));
+					var metric = new InstanceType(name, units[name]);
+					currentMetrics.push(metric);
+					_(metric.getCharts()).each(function (c) {
+						charts.push(c);
+					});
 				}
 			});
 			_(currentMetrics).each(function (g) {
-				g.update(newData[g.name], lastUpdate);
+				g.update(newData[g.name], self.lastUpdate);
 			});
 		}
 
 		function update(data) {
 			self.lastUpdate = moment(data.lastUpdate);
 
-			updateSimpleMetrics(gauges, data.Gauges, data.Units.Gauges, self.lastUpdate);
-			updateSimpleMetrics(counters, data.Counters, data.Units.Counters, self.lastUpdate);		
+			updateMetrics(metrics.Timer, timers, data.Timers, data.Units.Timers);
+			//updateMetrics(metrics.Histogram, histograms, data.Histograms, data.Units.Histograms);
+			//updateMetrics(metrics.Meter, meters, data.Meters, data.Units.Meters);
+			//updateMetrics(metrics.SimpleMetric, counters, data.Counters, data.Units.Counters);
+			//updateMetrics(metrics.SimpleMetric, gauges, data.Gauges, data.Units.Gauges);
 		}
 
-		this.getMetrics = function () {
-			return _(counters).union(gauges).value();
+		this.getCharts = function () {
+			//return _(meters).union(counters).union(gauges).value();
+			return charts;
 		};
 	}
 

@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="metric in registry.getMetrics()">
-            <chart metric="metric"></chart>
+        <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="chart in registry.getCharts()">
+            <chart chart="chart"></chart>
         </div>       
     </div>
 </div>

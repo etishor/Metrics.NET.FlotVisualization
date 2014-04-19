@@ -1,50 +1,56 @@
-﻿(function ($) {
+﻿(function ($, _) {
 	'use strict';
 
-	function Chart(name) {
-		this.name = name;
+	function Chart(name, unit, maxValues) {
+		var self = this,
+			isSingleSeries = true;
+
+		if (_(name).isString()) {
+			this.name = name;
+			this.unit = unit;
+		} else {
+			this.name = name.name;
+			this.labels = name.labels;
+			this.unit = name.unit;
+			isSingleSeries = false;
+			maxValues = unit;
+		}
+
 		this.options = {
-			grid: {
-				margin: {
-					top: 8,
-					bottom: 20,
-					left: 20
-				}
-			},
+			grid: { margin: { top: 8, bottom: 20, left: 20 } },
 			canvas: true,
-			legend: {
-				show: false,
-				position: 'nw'
-			},
-			xaxis: {
-				show: false,
-				min: 0,
-				max: 2
-			},
-			yaxis: {
-				show: true
-			},
+			legend: { show: !isSingleSeries, position: 'nw' },
+			xaxis: { show: false, min: 0, max: maxValues },
+			yaxis: { show: true, min: 0 },
 			series: {
 				lines: {
 					show: true,
-					lineWidth: 2,
-					fill: true
+					lineWidth: isSingleSeries ? 2 : 2,
+					fill: isSingleSeries
 				},
-				shadowSize: 2,
-				color: 8
+				shadowSize: isSingleSeries ? 2 : 1,
+				color: isSingleSeries ? 3 : undefined
 			}
 		};
 
 		this.data = [];
 
 		this.updateValues = function (values) {
-			this.options.xaxis.max = values.numberOfValues();
-			this.data = [{
-				data: values.getLast()
-			}];
+			if (!_(values).isArray()) {
+				this.data = [{
+					data: values.getLast()
+				}];
+			} else {
+				this.data = _(values).map(function (v, idx) {
+					return {
+						label: self.labels[idx],
+						data: v.getLast()
+					};
+				}).value();
+			}
 		};
 	}
 
 	$.extend(true, this, { metrics: { Chart: Chart } });
 
-}).call(this, this.jQuery);
+}).call(this, this.jQuery, this._);

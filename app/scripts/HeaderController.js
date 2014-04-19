@@ -1,4 +1,4 @@
-﻿(function (_, moment, metrics) {
+﻿(function () {
 	'use strict';
 
 	function HeaderController($scope, registry) {
@@ -13,4 +13,4 @@
 
 	$.extend(true, this, { metrics: { HeaderController: HeaderController } });
 
-}).call(this, this._, this.moment, this.metrics);
+}).call(this);

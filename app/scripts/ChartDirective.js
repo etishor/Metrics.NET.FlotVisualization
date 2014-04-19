@@ -6,24 +6,25 @@
 			restrict: 'E',
 			templateUrl: '../templates/Chart.tmpl.html',
 			scope: {
-				metric: '='
+				chart: '='
 			},
 			link: function (scope, element) {
 				var plotArea = $('.chart', element),
 					plot = null;
 
 				function init() {
-					plot = $.plot(plotArea, scope.metric.chart.data, scope.metric.chart.options);
+					plot = $.plot(plotArea, scope.chart.data, scope.chart.options);
 					var ylabel = $('<div class="axisLabel yaxisLabel"></div>')
-						.text(scope.metric.unit)
+						.text(scope.chart.unit)
 						.appendTo(plotArea);
 					ylabel.css('margin-top', ylabel.width() / 2 - 20);
-					var xlabel = $('<div class="axisLabel xaxisLabel"></div>')
-						.text(scope.metric.name + ' (' + scope.metric.unit + ')')
+
+					$('<div class="axisLabel xaxisLabel"></div>')
+						.text(scope.chart.name + ' (' + scope.chart.unit + ')')
 						.appendTo(plotArea);
 				}
 
-				scope.$watch('metric.chart.data', function (data) {
+				scope.$watch('chart.data', function (data) {
 					if (plot) {
 						plot.setData(data);
 						plot.setupGrid();
@@ -33,7 +34,7 @@
 					}					
 				});
 				
-				scope.$watch('metric.chart.options', init);
+				scope.$watch('chart.options', init);
 			}
 		};
 	}

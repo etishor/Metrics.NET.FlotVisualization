@@ -2,22 +2,24 @@
 	'use strict';
 
 	function SimpleMetric(name, unit) {
+		var options = { points: 100 },
+			values = new metrics.ValueSeries(options.points),
+			lastUpdate = null;
+
 		this.name = name;
 		this.unit = unit === '%' ? 'Percent' : unit;
-		this.options = {
-			points: 100
-		};
+		this.chart = new metrics.Chart(name, this.unit, options.points);
 
-		var values = new metrics.ValueSeries(this.options.points);
-		this.chart = new metrics.Chart(name);
-		this.lastUpdate = null;
-		
 		this.update = function (value, time) {
 			values.push(value);
 			if (value !== undefined) {
-				this.lastUpdate = time;
+				lastUpdate = time;
 			}
 			this.chart.updateValues(values);
+		};
+
+		this.getCharts = function () {
+			return [this.chart];
 		};
 	}
 

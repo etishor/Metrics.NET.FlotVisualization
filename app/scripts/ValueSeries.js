@@ -15,10 +15,6 @@
 			return values.length;
 		};
 
-		this.numberOfValues = function () {
-			return maxValues;
-		};
-
 		this.getLast = function (count) {
 			var data = [],
 				index = 0,
