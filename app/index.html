@@ -14,15 +14,8 @@
         window.metricsEndpoint = 'http://localhost:1234/metrics/json';
     </script>
 </head>
-<body id="ng-app" ng-app="MainModule">
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Metrics.NET Dashboard</a>
-            </div>
-        </div>
-    </div>
-
+<body id="ng-app" ng-app="MainModule">    
+    <div ng-controller="HeaderController" ng-include="'../templates/Header.tmpl.html'"></div>
     <div class="container-fluid">
         <div ng-view></div>
     </div>
@@ -33,19 +26,28 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/lodash/dist/lodash.compat.js"></script>
     <script src="bower_components/flot/jquery.flot.js"></script>
+    <script src="bower_components/flot/jquery.flot.resize.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-flot/angular-flot.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <!-- endbower -->
-    <script src="scripts/Metrics/Gauge.js"></script>
-    <script src="scripts/Metrics/ValueSeries.js"></script>
+    <script src="scripts/ValueSeries.js"></script>
+    <script src="scripts/Chart.js"></script>
+    <script src="scripts/Gauge.js"></script>
+    <script src="scripts/SimpleMetric.js"></script>
+    <script src="scripts/Registry.js"></script>
+
+    <!--<script src="scripts/Metrics/ValueSeries.js"></script>
     <script src="scripts/Metrics/MetricSet.js"></script>
     <script src="scripts/Metrics/Meter.js"></script>
     <script src="scripts/Metrics/Histogram.js"></script>
     <script src="scripts/Metrics/Timer.js"></script>
     <script src="scripts/Metrics/MetricsRegistry.js"></script>
-    <script src="scripts/Chart.js"></script>
+    <script src="scripts/Chart.js"></script>-->
+
+    <script src="scripts/ChartDirective.js"></script>
+    <script src="scripts/HeaderController.js"></script>
     <script src="scripts/DashboardController.js"></script>
     <script src="scripts/MainModule.js"></script>
     <!-- endbuild -->

@@ -1,39 +1,50 @@
-﻿(function ($, _) {
-    'use strict';
+﻿(function ($) {
+	'use strict';
 
-    function Chart(name, metrics) {
-        var self = this;
-        this.name = name;
-        this.data = [];
-        this.metrics = metrics || [];
-        this.options = {
-            legend: { margin: [-130, 0] },
-            xaxis: { show: false, min: 0, max: 50 }
-        };
+	function Chart(name) {
+		this.name = name;
+		this.options = {
+			grid: {
+				margin: {
+					top: 8,
+					bottom: 20,
+					left: 20
+				}
+			},
+			canvas: true,
+			legend: {
+				show: false,
+				position: 'nw'
+			},
+			xaxis: {
+				show: false,
+				min: 0,
+				max: 2
+			},
+			yaxis: {
+				show: true
+			},
+			series: {
+				lines: {
+					show: true,
+					lineWidth: 2,
+					fill: true
+				},
+				shadowSize: 2,
+				color: 8
+			}
+		};
 
-        function updateName() {
-            self.name = self.metrics[0];
-        }
+		this.data = [];
 
-        this.addMetric = function (metric) {
-            this.metrics.push(metric);
-            this.metrics = _(this.metrics).unique().where(function (m) {
-                return m && m.length > 0;
-            }).value();
-            updateName();
-        };
+		this.updateValues = function (values) {
+			this.options.xaxis.max = values.numberOfValues();
+			this.data = [{
+				data: values.getLast()
+			}];
+		};
+	}
 
-        this.update = function (registry) {
-            this.data = registry.getSeries(this.metrics);
-        };
+	$.extend(true, this, { metrics: { Chart: Chart } });
 
-        this.hasMetrics = function () {
-            return _(this.metrics).any();
-        };
-
-        updateName();
-    }
-
-    $.extend(true, this, { metrics: { Chart: Chart } });
-
-}).call(this, this.jQuery, this._);
+}).call(this, this.jQuery);

@@ -1,10 +1,8 @@
 ﻿<div class="container-fluid">
     <div class="row">
-        <div class="col-md-6 chartContainer" ng-repeat="metric in metrics">
-            <p>{{metric.name}} {{metric.unit}}</p>
-            <flot class="chart" dataset="metric.chart.data" options="metric.chart.options" 
-                 width="{{gauge.options.width}}" height="{{gauge.options.height}}"></flot>
-        </div>
+        <div class="col-sm-12 col-md-4 col-lg-3" ng-repeat="metric in registry.getMetrics()">
+            <chart metric="metric"></chart>
+        </div>       
     </div>
 </div>
 
