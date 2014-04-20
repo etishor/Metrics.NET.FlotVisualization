@@ -2,8 +2,9 @@
 	'use strict';
 
 	this.MainModule = angular.module('MainModule', ['ngRoute'])
-		.value('endpoint', window.metricsEndpoint || '/json')
+		.value('endpoint', window.metricsEndpoint || '/')
 		.service('registry', ['$timeout', '$http', 'endpoint', metrics.Registry])
+		.service('healthMonitor', ['$timeout', '$http', 'endpoint', metrics.HealthMonitor])
 		.directive('chart', metrics.ChartDirective)
 		.directive('checkBoxMenu', function () {
 			return {
@@ -16,7 +17,7 @@
 			};
 		})
 		.controller('DashboardController', ['$scope', 'registry', metrics.DashboardController])
-		.controller('HeaderController', ['$scope', 'registry', metrics.HeaderController])
+		.controller('HeaderController', ['$scope', 'registry','healthMonitor', metrics.HeaderController])
 		.config(['$routeProvider', function ($routeProvider) {
 			$routeProvider
 				.when('/', { templateUrl: 'templates/Dashboard.tmpl.html', controller: 'DashboardController' });

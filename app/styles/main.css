@@ -1,6 +1,6 @@
 ﻿body
 {
-    padding-top: 50px;
+    padding-top: 55px;
     padding-bottom: 20px;
 }
 
@@ -13,7 +13,7 @@ label.checkbox
     margin-right: 6px;
 }
 
-.checkbox
+.checkbox, .dropdown a
 {
     cursor: pointer;
 }
@@ -86,4 +86,26 @@ label.checkbox
     top: 40%;
     font-size: 36px;
     filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.0, M12=0.33, M21=-0.33, M22=0.0,sizingMethod='auto expand');
+}
+
+.healthy
+{
+    color: #05d116 !important;
+}
+
+.unhealthy
+{
+    color: #ff1c1c !important;
+    font-weight: bold; 
+}
+
+pre.health-status
+{
+    word-wrap:normal;
+}
+
+.error-report p
+{
+    padding: 15px;
+    text-align:center;
 }

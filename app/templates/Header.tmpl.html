@@ -7,9 +7,27 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="javascript:void(0)">Metrics.NET Dashboard</a>
+            <a class="navbar-brand" href="javascript:void(0)">Metrics.NET</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Last Update {{registry.lastUpdate.format('HH:mm:ss')}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0)" ng-click="setInterval(100);">Every 100ms</a></li>
+                        <li><a href="javascript:void(0)" ng-click="setInterval(500);">Every 500ms</a></li>
+                        <li><a href="javascript:void(0)" ng-click="setInterval(1000);">Every 1s</a></li>
+                        <li><a href="javascript:void(0)" ng-click="setInterval(2000);">Every 2s</a></li>
+                        <li><a href="javascript:void(0)" ng-click="setInterval(5000);">Every 5s</a></li>
+                        <li><a href="javascript:void(0)" ng-click="setInterval(10000);">Every 10s</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0)" ng-click="setInterval(0);">Don't update</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0)" ng-click="clearData();">Clear All Data</a></li>
+                    </ul>
+                </li>
+            </ul>
+
             <ul class="nav navbar-nav" ng-repeat="metric in registry.getMetricsMeta()">
                 <li class="dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">{{metric.name}} <b class="caret"></b></a>
@@ -33,21 +51,40 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Last Update {{registry.lastUpdate.format('HH:mm:ss')}} <b class="caret"></b></a>
+                    <a href="javascript:void(0)" class="dropdown-toggle"
+                        ng-class="{healthy:healthMonitor.isHealthy, unhealthy: !healthMonitor.isHealthy}"
+                        data-toggle="dropdown">Health Status<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0)" ng-click="setInterval(100);">Every 100ms</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(500);">Every 500ms</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(1000);">Every 1s</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(2000);">Every 2s</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(5000);">Every 5s</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(10000);">Every 10s</a></li>
+                        <li ng-show="healthMonitor.unhealthy.length" class="dropdown-header">Unhealthy</li>
+                        <li ng-repeat="line in healthMonitor.unhealthy">
+                            <a class="unhealthy" data-toggle="modal" ng-click="setHealthItem(false,line)"
+                                data-target=".health-status-modal">{{line.name}} </a>
+                        </li>
                         <li class="divider"></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(0);">Don't update</a></li>
-                        <li class="divider"></li>
-                        <li><a href="javascript:void(0)" ng-click="clearData();">Clear All Data</a></li>
+                        <li ng-show="healthMonitor.healthy.length" class="dropdown-header">Healthy</li>
+                        <li ng-repeat="line in healthMonitor.healthy">
+                            <a class="healthy" data-toggle="modal" ng-click="setHealthItem(true,line)"
+                                data-target=".health-status-modal">{{line.name}} </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+<div class="health-status-modal modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" ng-class="{healthy:healthItem.isHealthy, unhealthy: !healthItem.isHealthy}">{{healthItem.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <pre class="health-status">{{healthItem.text}}</pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>

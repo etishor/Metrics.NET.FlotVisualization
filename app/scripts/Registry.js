@@ -75,6 +75,10 @@
 			});
 		};
 
+		this.retry = function () {
+			updateValues();
+		}
+
 		function updateMetrics(InstanceType, currentMetrics, newData, units) {
 			var existing = _(currentMetrics).map('name');
 			_(newData).each(function (value, name) {
@@ -106,7 +110,8 @@
 		};
 
 		function updateValues() {
-			$http.get(endpoint).success(function (data) {
+			$http.get(endpoint + '/json').success(function (data) {
+				self.updateError = null;
 				update(data);
 				if (timer === null) {
 					self.showAll(timers);
@@ -115,7 +120,7 @@
 					timer = $timeout(updateValues, interval);
 				}
 			}).error(function () {
-				self.updateError = 'Error reading metric data from ' + endpoint;
+				self.updateError = 'Error reading metric data from ' + endpoint + '/json. Update stopped.';
 			});
 		}
 
