@@ -2,10 +2,11 @@
 	'use strict';
 
 	function ValueSeries(maxValues) {
-		var values = [];
+		var values = [],
+			max = maxValues || 100;
 
 		this.push = function (value) {
-			if (values.length > maxValues) {
+			if (values.length > max) {
 				values = values.slice(1);
 			}
 			values.push(value);
@@ -27,6 +28,7 @@
 			for (var i = start; i < values.length; ++i) {
 				data.push([index++, values[i]]);
 			}
+
 			return data;
 		};
 	}

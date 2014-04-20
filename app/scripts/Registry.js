@@ -4,6 +4,7 @@
 	function Registry($timeout, $http, endpoint) {
 		var self = this,
 			interval = 500,
+			maxValues = 100,
 			timer = null,
 			charts = [],
 			gauges = [],
@@ -78,7 +79,7 @@
 			var existing = _(currentMetrics).map('name');
 			_(newData).each(function (value, name) {
 				if (!_(existing).contains(name)) {
-					var metric = new InstanceType(name, units[name]);
+					var metric = new InstanceType(name, units[name], maxValues);
 					currentMetrics.push(metric);
 					_(metric.getCharts()).each(function (c) {
 						charts.push(c);

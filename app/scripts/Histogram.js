@@ -23,15 +23,15 @@
 		this.countChart.options.yaxis.min = 0;
 
 		this.minMaxChart = new metrics.Chart({
-			name: name + 'Min/Max',
+			name: name + ' Min/Max',
 			unit: unit,
-			labels: ['max', 'mean', 'min', 'Std Dev']
+			labels: [{ label: 'Max', visible: false }, 'Mean', 'Min', 'Std Dev']
 		}, options.points);
 
 		this.percentilesChart = new metrics.Chart({
-			name: name + 'Percentiles',
+			name: name + ' Percentiles',
 			unit: unit,
-			labels: ['75%', '95%', '98%', '99%', '99.9%']
+			labels: ['75%', '95%', '98%', '99%', { label: '99.9%', visible: false }]
 		}, options.points);
 		this.percentilesChart.options.series.lines.fill = false;
 		
@@ -61,7 +61,8 @@
 			return [this.countChart, this.minMaxChart, this.percentilesChart];
 		};
 
-		this.toggle = function (value) {			
+		this.toggle = function (value) {
+			this.minMaxChart.toggle(value);
 			this.percentilesChart.toggle(value);
 		};
 

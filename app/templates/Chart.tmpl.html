@@ -1,9 +1,10 @@
 ﻿<div class="chart-container">
-    <div class="chart" style="height:90%;width:100%;"></div>
-    <a title="remove" href="javascript:void(0)" ng-click="chart.toggle(false)" class="close glyphicon glyphicon-remove-circle"></a>
-    <ul class="list-inline series-options">
-        <li ng-repeat="label in chart.labels">
-            <label><input type="checkbox" />{{label}}</label>
-        </li>
-    </ul>
+    <div class="chart" style="height: 90%; width: 100%;"></div>
+    <a title="Hide this chart" href="javascript:void(0)"
+         ng-click="chart.toggle(false)" class="close glyphicon glyphicon-remove"></a>
+    <div class="center-block">
+        <label ng-repeat="label in chart.labels" class="checkbox-inline">
+            <input type="checkbox" ng-model="label.visible" />{{label.label}}
+        </label>
+    </div>
 </div>

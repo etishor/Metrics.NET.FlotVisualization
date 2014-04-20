@@ -1,38 +1,48 @@
 ﻿(function ($, _) {
 	'use strict';
 
-	function Chart(name, unit, maxValues) {
-		var self = this,
-			isSingleSeries = true,
-			visible = false;
-
-		if (_(name).isString()) {
-			this.name = name;
-			this.unit = unit;
-		} else {
-			this.name = name.name;
-			this.labels = name.labels;
-			this.unit = name.unit;
-			isSingleSeries = false;
-			maxValues = unit;
+	function mapLabels(options) {
+		if (!options.labels) {
+			return [];
 		}
 
-		this.options = {
-			grid: { margin: { top: 8, bottom: 20, left: 20 } },
-			canvas: true,
-			legend: { show: !isSingleSeries, position: 'nw' },
-			xaxis: { show: false, min: 0, max: maxValues },
-			yaxis: { show: true, min: 0 },
-			series: {
-				lines: {
-					show: true,
-					lineWidth: isSingleSeries ? 2 : 2,
-					fill: isSingleSeries
-				},
-				shadowSize: isSingleSeries ? 2 : 1,
-				color: isSingleSeries ? 3 : undefined
+		return _(options.labels).map(function (l) {
+			if (_(l).isString()) {
+				return { label: l, visible: true };
+			} else {
+				return l;
 			}
-		};
+		}).value();
+	}
+
+	function Chart(options) {
+		var visible = false,
+			maxValues = options.maxValues || 100,
+			labels = mapLabels(options),
+			isSingleSeries = labels.length <= 1,
+			chartOptions = $.extend(true, {
+				grid: { margin: { top: 8, bottom: 20, left: 20 } },
+				canvas: true,
+				legend: { show: !isSingleSeries, position: 'nw' },
+				xaxis: { show: false, min: 0, max: maxValues },
+				yaxis: { show: true, min: 0 },
+				series: {
+					lines: {
+						show: true,
+						lineWidth: isSingleSeries ? 2 : 2,
+						fill: isSingleSeries
+					},
+					shadowSize: isSingleSeries ? 2 : 1,
+					color: isSingleSeries ? 3 : undefined
+				}
+			}, options.options);
+
+		this.name = options.name;
+		this.unit = options.unit;
+		this.labels = labels;
+
+		this.data = [];
+		this.options = chartOptions;
 
 		this.toggle = function (value) {
 			if (value === undefined) {
@@ -46,8 +56,6 @@
 			return visible;
 		};
 
-		this.data = [];
-
 		this.updateValues = function (values) {
 			if (!_(values).isArray()) {
 				this.data = [{
@@ -55,11 +63,19 @@
 				}];
 			} else {
 				this.data = _(values).map(function (v, idx) {
+					var label;
+					if (idx < labels.length) {
+						if (!labels[idx].visible) {
+							return;
+						}
+						label = labels[idx].label;
+					}
+
 					return {
-						label: self.labels[idx],
+						label: label,
 						data: v.getLast()
 					};
-				}).value();
+				}).compact().value();
 			}
 		};
 	}

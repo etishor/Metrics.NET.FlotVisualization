@@ -1,20 +1,19 @@
 ﻿(function ($, moment, metrics) {
 	'use strict';
 
-	function SimpleMetric(name, unit) {
-		var options = { points: 100 },
-			values = new metrics.ValueSeries(options.points),
-			lastUpdate = null;
+	function SimpleMetric(name, unit, maxValues) {
+		var values = new metrics.ValueSeries(maxValues);
 
 		this.name = name;
-		this.unit = unit === '%' ? 'Percent' : unit;
-		this.chart = new metrics.Chart(name, this.unit, options.points);
+		this.unit = unit;
 
-		this.update = function (value, time) {
+		this.chart = new metrics.Chart({
+			name: name,
+			unit: unit
+		});
+
+		this.update = function (value) {
 			values.push(value);
-			if (value !== undefined) {
-				lastUpdate = time;
-			}
 			this.chart.updateValues(values);
 		};
 

@@ -31,11 +31,11 @@ label.checkbox
     .chart-container .close
     {
         position:absolute;
-        top: 15px;
-        right: 15px;
-        font-size: 14px;
-        opacity: 0.08;
-        color:red;
+        top: 16px;
+        right: 16px;
+        font-size: 10px;
+        opacity: 0.2;
+        color: #808080;
     }
 
         .chart-container .close:hover
@@ -43,16 +43,21 @@ label.checkbox
             opacity: 1;
         }
 
-    .chart-container .series-options
+    .chart-container label
     {
-        text-align: center;
-        width: 100%;
+        font-size:12px;
     }
-        .chart-container .series-options label
-        {
-            font-weight:normal;
-        }
 
+    .chart-container input[type=checkbox]
+    {
+        bottom: 1px;
+        position: relative;
+    }
+
+    .chart-container .center-block
+    {
+        text-align:center;
+    }
 
 .axisLabel
 {
