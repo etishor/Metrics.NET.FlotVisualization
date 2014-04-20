@@ -20,7 +20,7 @@
 				{ name: 'Histograms', data: histograms }
 			];
 
-		this.chartUpdated = function (chart) {
+		this.chartUpdated = function () {
 			saveChartState();
 		};
 
@@ -34,9 +34,10 @@
 					name: c.name,
 					unit: c.unit,
 					visible: c.isVisible()
-				}}).value();
+				}
+			}).value();
 			configService.registryConfig(config);
-		}
+		};
 
 		function initialSetup() {
 			if (!config.chartState) {

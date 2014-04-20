@@ -25,11 +25,11 @@
 		});
 
 		this.update = function (value) {
-			count.push(value.Count);
-			mean.push(value.MeanRate);
-			rate1.push(value.OneMinuteRate);
-			rate5.push(value.FiveMinuteRate);
-			rate15.push(value.FifteenMinuteRate);
+			count.push(value ? value.Count : undefined);
+			mean.push(value ? value.MeanRate : undefined);
+			rate1.push(value ? value.OneMinuteRate : undefined);
+			rate5.push(value ? value.FiveMinuteRate : undefined);
+			rate15.push(value ? value.FifteenMinuteRate : undefined);
 
 			this.countChart.updateValues(count);
 			this.rateChart.updateValues([mean, rate1, rate5, rate15]);

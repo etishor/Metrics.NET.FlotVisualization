@@ -10,8 +10,8 @@
 		this.unit = unit;
 
 		this.update = function (value, time) {
-			meter.update(value.Rate);
-			histogram.update(value.Histogram);
+			meter.update(value ? value.Rate : undefined);
+			histogram.update( value ? value.Histogram : undefined);
 
 			if (value !== undefined) {
 				lastUpdate = time;

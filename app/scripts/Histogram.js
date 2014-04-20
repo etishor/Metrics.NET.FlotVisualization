@@ -34,19 +34,19 @@
 			labels: ['75%', '95%', '98%', '99%', { label: '99.9%', visible: false }]
 		}, options.points);
 		this.percentilesChart.options.series.lines.fill = false;
-		
+
 		this.update = function (value, time) {
-			count.push(value.Count);
-			max.push(value.Max);
-			mean.push(value.Mean);
-			min.push(value.Min);
-			stdDev.push(value.StdDev);
-			median.push(value.Median);
-			p75.push(value.Percentile75);
-			p95.push(value.Percentile95);
-			p98.push(value.Percentile98);
-			p99.push(value.Percentile99);
-			p999.push(value.Percentile999);
+			count.push(value ? value.Count : undefined);
+			max.push(value ? value.Max : undefined);
+			mean.push(value ? value.Mean : undefined);
+			min.push(value ? value.Min : undefined);
+			stdDev.push(value ? value.StdDev : undefined);
+			median.push(value ? value.Median : undefined);
+			p75.push(value ? value.Percentile75 : undefined);
+			p95.push(value ? value.Percentile95 : undefined);
+			p98.push(value ? value.Percentile98 : undefined);
+			p99.push(value ? value.Percentile99 : undefined);
+			p999.push(value ? value.Percentile999 : undefined);
 
 			if (value !== undefined) {
 				lastUpdate = time;
