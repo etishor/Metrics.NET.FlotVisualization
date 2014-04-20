@@ -37,14 +37,16 @@
 		
 		this.setUpdateInterval = function (updateInterval) {
 			interval = updateInterval;
+			updateValues();
 		};
 
 		this.clearData = function () {
-			gauges = [];
-			counters = [];
-			meters = [];
-			histograms = [];
-			timers = [];
+			charts.length = 0;
+			gauges.length = 0;
+			counters.length = 0;
+			meters.length = 0;
+			histograms.length = 0;
+			timers.length = 0;
 		};
 
 		this.getMetricsMeta = function () {

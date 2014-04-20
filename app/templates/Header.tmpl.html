@@ -14,14 +14,21 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Last Update {{registry.lastUpdate.format('HH:mm:ss')}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0)" ng-click="setInterval(100);">Every 100ms</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(500);">Every 500ms</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(1000);">Every 1s</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(2000);">Every 2s</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(5000);">Every 5s</a></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(10000);">Every 10s</a></li>
+                        <li ng-class="{active:interval==100}">
+                            <a href="javascript:void(0)" ng-click="setInterval(100);">Update every 100ms</a></li>
+                        <li ng-class="{active:interval==500}">
+                            <a href="javascript:void(0)" ng-click="setInterval(500);">Update every 500ms</a></li>
+                        <li ng-class="{active:interval==1000}">
+                            <a href="javascript:void(0)" ng-click="setInterval(1000);">Update every 1s</a></li>
+                        <li ng-class="{active:interval==2000}">
+                            <a href="javascript:void(0)" ng-click="setInterval(2000);">Update every 2s</a></li>
+                        <li ng-class="{active:interval==5000}">
+                            <a href="javascript:void(0)" ng-click="setInterval(5000);">Update every 5s</a></li>
+                        <li ng-class="{active:interval==10000}">
+                            <a href="javascript:void(0)" ng-click="setInterval(10000);">Update every 10s</a></li>
                         <li class="divider"></li>
-                        <li><a href="javascript:void(0)" ng-click="setInterval(0);">Don't update</a></li>
+                        <li ng-class="{active:interval==0}">
+                            <a href="javascript:void(0)" ng-click="setInterval(0);">Don't update</a></li>
                         <li class="divider"></li>
                         <li><a href="javascript:void(0)" ng-click="clearData();">Clear All Data</a></li>
                     </ul>
@@ -72,6 +79,21 @@
         </div>
     </div>
 </div>
+<div class="container" ng-if="registry.updateError || healthMonitor.updateError">
+    <div class="row error-report" ng-if="registry.updateError">
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{registry.updateError}} <a href="javascript:void(0)" ng-click="registry.retry()">retry</a>
+        </div>
+    </div>
+    <div class="row error-report" ng-if="healthMonitor.updateError">
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{healthMonitor.updateError}} <a href="javascript:void(0)" ng-click="healthMonitor.retry()">retry</a>
+        </div>
+    </div>
+</div>
+
 <div class="health-status-modal modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

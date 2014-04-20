@@ -5,7 +5,10 @@
 		$scope.registry = registry;
 		$scope.healthMonitor = healthMonitor;
 
+		$scope.interval = 500;
+
 		$scope.setInterval = function (interval) {
+			$scope.interval = interval;
 			registry.setUpdateInterval(interval);
 		};
 

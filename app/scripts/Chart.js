@@ -73,6 +73,7 @@
 
 					return {
 						label: label,
+						color : idx,
 						data: v.getLast()
 					};
 				}).compact().value();
