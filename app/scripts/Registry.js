@@ -34,10 +34,10 @@
 					name: c.name,
 					unit: c.unit,
 					visible: c.isVisible()
-				}
+				};
 			}).value();
 			configService.registryConfig(config);
-		};
+		}
 
 		function initialSetup() {
 			if (!config.chartState) {
