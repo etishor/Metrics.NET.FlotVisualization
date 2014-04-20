@@ -19,7 +19,7 @@
     "name": "Iulian Margarintescu",
     "email": "etishor@gmail.com"
   },
-  "version": "0.0.10-alpha",
+  "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.1",
