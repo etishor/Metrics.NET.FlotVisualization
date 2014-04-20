@@ -1,7 +1,7 @@
 ﻿<div class="chart-container">
     <div class="chart" style="height: 90%; width: 100%;"></div>
     <a title="Hide this chart" href="javascript:void(0)"
-         ng-click="chart.toggle(false)" class="close glyphicon glyphicon-remove"></a>
+         ng-click="chart.toggle(false)" class="close">x</a>
     <div class="center-block">
         <label ng-repeat="label in chart.labels" class="checkbox-inline">
             <input type="checkbox" ng-model="label.visible" />{{label.label}}

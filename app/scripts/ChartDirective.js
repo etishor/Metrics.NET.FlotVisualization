@@ -4,7 +4,7 @@
 	function ChartDirective() {
 		return {
 			restrict: 'E',
-			templateUrl: '../templates/Chart.tmpl.html',
+			templateUrl: 'templates/Chart.tmpl.html',
 			scope: {
 				chart: '='
 			},
