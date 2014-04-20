@@ -1,9 +1,9 @@
-﻿(function ($, _, moment, metrics) {
+﻿(function ($, _) {
 	'use strict';
 
-	function HealthMonitor($timeout, $http, endpoint) {
+	function HealthMonitor($timeout, $http, endpoint, configService) {
 		var self = this,
-			interval = 1000,
+			config = configService.healthConfig(),
 			timer = null;
 
 		this.isHealthy = true;
@@ -15,9 +15,13 @@
 			updateStatus();
 		};
 
-		this.setUpdateInterval = function (updateInterval) {
-			interval = updateInterval;
-			updateStatus();
+		this.updateInterval = function (interval) {
+			if (interval !== undefined) {
+				config.interval = interval;
+				configService.healthConfig(config);
+				updateStatus();
+			}
+			return config.interval;
 		};
 
 		function mapSection(section) {
@@ -31,16 +35,16 @@
 			self.isHealthy = status.IsHealthy;
 			self.unhealthy = mapSection(status.Unhealthy);
 			self.healthy = mapSection(status.Healthy);
-			if (interval > 0) {
-				timer = $timeout(updateStatus, interval);
-			}			
+			if (config.interval > 0) {
+				timer = $timeout(updateStatus, config.interval);
+			}
 		}
 
 		function updateStatus() {
 			$http.get(endpoint + '/health').success(function (data) {
 				update(data);
 			}).error(function (data, status) {
-				if (status == 500 && _(data).isObject() && data.IsHealthy === false) {
+				if (status === 500 && _(data).isObject() && data.IsHealthy === false) {
 					update(data);
 				} else {
 					self.updateError = 'Error reading Health Status data from ' + endpoint + '/health. Update stopped.';
@@ -53,4 +57,4 @@
 
 	$.extend(true, this, { metrics: { HealthMonitor: HealthMonitor } });
 
-}).call(this, this.jQuery, this._, this.moment, this.metrics);
+}).call(this, this.jQuery, this._);

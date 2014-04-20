@@ -27,20 +27,20 @@
                         </li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Update every</li>
-                        <li ng-class="{active:interval==100}">
+                        <li ng-class="{active:registry.updateInterval()==100}">
                             <a href="javascript:void(0)" ng-click="setInterval(100);">100 milliseconds</a></li>
-                        <li ng-class="{active:interval==500}">
+                        <li ng-class="{active:registry.updateInterval()==500}">
                             <a href="javascript:void(0)" ng-click="setInterval(500);">500 milliseconds</a></li>
-                        <li ng-class="{active:interval==1000}">
+                        <li ng-class="{active:registry.updateInterval()==1000}">
                             <a href="javascript:void(0)" ng-click="setInterval(1000);">1 second</a></li>
-                        <li ng-class="{active:interval==2000}">
+                        <li ng-class="{active:registry.updateInterval()==2000}">
                             <a href="javascript:void(0)" ng-click="setInterval(2000);">2 seconds</a></li>
-                        <li ng-class="{active:interval==5000}">
+                        <li ng-class="{active:registry.updateInterval()==5000}">
                             <a href="javascript:void(0)" ng-click="setInterval(5000);">5 seconds</a></li>
-                        <li ng-class="{active:interval==10000}">
+                        <li ng-class="{active:registry.updateInterval()==10000}">
                             <a href="javascript:void(0)" ng-click="setInterval(10000);">10 seconds</a></li>
                         <li class="divider"></li>
-                        <li ng-class="{active:interval==0}">
+                        <li ng-class="{active:registry.updateInterval()==0}">
                             <a href="javascript:void(0)" ng-click="setInterval(0);">Don't update</a></li>
                         <li class="divider"></li>
                         <li><a href="javascript:void(0)" ng-click="clearData();">Clear All Data</a></li>
@@ -57,7 +57,7 @@
                                 <a href="javascript:void(0)"
                                     ng-click="registry.showAll(metric.data)">show all</a>
                                 &nbsp|&nbsp;
-                                <a href="javascript:v   oid(0)"
+                                <a href="javascript:void(0)"
                                     ng-click="registry.hideAll(metric.data)">hide all</a>
                             </div>
                         </li>

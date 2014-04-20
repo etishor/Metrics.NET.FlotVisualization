@@ -5,27 +5,25 @@
 		$scope.registry = registry;
 		$scope.healthMonitor = healthMonitor;
 
-		$scope.interval = 500;
+		$scope.clearData = registry.clearData;
 
 		$scope.setInterval = function (interval) {
 			$scope.interval = interval;
-			registry.setUpdateInterval(interval);
+			registry.updateInterval(interval);
 		};
 
-		$scope.clearData = registry.clearData;
+		$scope.healthInterval = healthMonitor.updateInterval();
+		$scope.setHealthUpdateIntervel = function (interval) {
+			$scope.healthInterval = interval;
+			healthMonitor.updateInterval(interval);
+		};
 
 		$scope.setHealthItem = function (isHealthy, item) {
 			$scope.healthItem = {
 				isHealthy: isHealthy,
 				name: item.name,
-				text : item.text
-			}
-		};
-
-		$scope.healthInterval = 1000;
-		$scope.setHealthUpdateIntervel = function (interval) {
-			$scope.healthInterval = interval;
-			healthMonitor.setUpdateInterval(interval);
+				text: item.text
+			};
 		};
 	}
 

@@ -1,10 +1,9 @@
 ﻿(function ($, _, moment, metrics) {
 	'use strict';
 
-	function Registry($timeout, $http, endpoint) {
+	function Registry($timeout, $http, endpoint, configService) {
 		var self = this,
-			interval = 500,
-			maxValues = 100,
+			config = configService.registryConfig(),
 			timer = null,
 			charts = [],
 			gauges = [],
@@ -20,6 +19,10 @@
 				{ name: 'Histograms', data: histograms }
 			];
 		
+		function initialSetup() {
+			self.showAll(timers);
+		}
+
 		this.showAll = function (metrics) {
 			if (metrics) {
 				_(metrics).each(function (m) {
@@ -51,11 +54,15 @@
 		this.lastUpdate = moment(0);
 		this.updateError = null;
 		
-		this.setUpdateInterval = function (updateInterval) {
-			interval = updateInterval;
-			updateValues();
+		this.updateInterval = function (interval) {
+			if (interval !== undefined) {
+				config.interval = interval;
+				configService.registryConfig(config);
+				updateValues();
+			}
+			return config.interval;
 		};
-
+				
 		this.clearData = function () {
 			charts.length = 0;
 			gauges.length = 0;
@@ -69,39 +76,15 @@
 			return meta;
 		};
 
-		this.getGauges = function () { return gauges; };
-		this.getCounters = function () { return counters; };
-		this.getMeters = function () { return meters; };
-		this.getHistograms = function () { return histograms; };
-		this.getTimers = function () { return timers; };
-
-		this.hideGauges = function () {
-			_(gauges).each(function (g) {
-				g.chart.isVisible = false;
-			});
-		};
-
-		this.hideCounters = function () {
-			_(counters).each(function (c) {
-				c.chart.isVisible = false;
-			});
-		};
-
-		this.hideMeters = function () {
-			_(meters).each(function (m) {
-				m.toggle(false);
-			});
-		};
-
 		this.retry = function () {
 			updateValues();
-		}
+		};
 
 		function updateMetrics(InstanceType, currentMetrics, newData, units) {
 			var existing = _(currentMetrics).map('name');
 			_(newData).each(function (value, name) {
 				if (!_(existing).contains(name)) {
-					var metric = new InstanceType(name, units[name], maxValues);
+					var metric = new InstanceType(name, units[name], config.maxValues);
 					currentMetrics.push(metric);
 					_(metric.getCharts()).each(function (c) {
 						charts.push(c);
@@ -132,10 +115,10 @@
 				self.updateError = null;
 				update(data);
 				if (timer === null) {
-					self.showAll(timers);
+					initialSetup();
 				}
-				if (interval > 0) {
-					timer = $timeout(updateValues, interval);
+				if (config.interval > 0) {
+					timer = $timeout(updateValues, config.interval);
 				}
 			}).error(function () {
 				self.updateError = 'Error reading metric data from ' + endpoint + '/json. Update stopped.';
