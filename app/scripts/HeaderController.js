@@ -12,7 +12,6 @@
 			registry.updateInterval(interval);
 		};
 
-		$scope.healthInterval = healthMonitor.updateInterval();
 		$scope.setHealthUpdateIntervel = function (interval) {
 			$scope.healthInterval = interval;
 			healthMonitor.updateInterval(interval);

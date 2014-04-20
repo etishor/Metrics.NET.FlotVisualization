@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Metrics<b class="caret"></b></a>
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Metrics ({{registry.updateInterval()}} ms)<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-header">Last Update {{registry.lastUpdate.format('HH:mm:ss')}}</li>
                         <li class="divider"></li>
@@ -87,7 +87,7 @@
                 <li class="dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle"
                         ng-class="{healthy:healthMonitor.isHealthy, unhealthy: !healthMonitor.isHealthy}"
-                        data-toggle="dropdown">Health Status<b class="caret"></b></a>
+                        data-toggle="dropdown">Health Status ({{healthMonitor.updateInterval() / 1000}} s)<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li ng-show="healthMonitor.unhealthy.length" class="dropdown-header">Unhealthy</li>
                         <li ng-repeat="line in healthMonitor.unhealthy">
@@ -102,20 +102,20 @@
                         </li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Update every</li>
-                        <li ng-class="{active:healthInterval==1000}">
+                        <li ng-class="{active:healthMonitor.updateInterval()==1000}">
                             <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(1000);">1 second</a></li>
-                        <li ng-class="{active:healthInterval==5000}">
+                        <li ng-class="{active:healthMonitor.updateInterval()==5000}">
                             <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(5000);">5 seconds</a></li>
-                        <li ng-class="{active:healthInterval==10000}">
+                        <li ng-class="{active:healthMonitor.updateInterval()==10000}">
                             <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(10000);">10 seconds</a></li>
-                        <li ng-class="{active:healthInterval==30000}">
+                        <li ng-class="{active:healthMonitor.updateInterval()==30000}">
                             <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(30000);">30 seconds</a></li>
-                        <li ng-class="{active:healthInterval==60000}">
+                        <li ng-class="{active:healthMonitor.updateInterval()==60000}">
                             <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(60000);">60 seconds</a></li>
-                        <li ng-class="{active:healthInterval==600000}">
+                        <li ng-class="{active:healthMonitor.updateInterval()==600000}">
                             <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(600000);">10 minutes</a></li>
                         <li class="divider"></li>
-                        <li ng-class="{active:healthInterval==0}">
+                        <li ng-class="{active:healthMonitor.updateInterval()==0}">
                             <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(0);">Don't update</a></li>
                     </ul>
                 </li>
