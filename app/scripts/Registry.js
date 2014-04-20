@@ -3,6 +3,7 @@
 
 	function Registry($timeout, $http, endpoint, configService) {
 		var self = this,
+			initialized = false,
 			config = configService.registryConfig(),
 			timer = null,
 			charts = [],
@@ -18,9 +19,38 @@
 				{ name: 'Gauges', data: gauges },
 				{ name: 'Histograms', data: histograms }
 			];
-		
+
+		this.chartUpdated = function (chart) {
+			saveChartState();
+		};
+
+		function saveChartState() {
+			if (!initialized) {
+				return;
+			}
+
+			config.chartState = _(charts).map(function (c) {
+				return {
+					name: c.name,
+					unit: c.unit,
+					visible: c.isVisible()
+				}}).value();
+			configService.registryConfig(config);
+		}
+
 		function initialSetup() {
-			self.showAll(timers);
+			if (!config.chartState) {
+				self.showAll(timers);
+			} else {
+				_(config.chartState).each(function (s) {
+					_(charts).where(function (c) {
+						return c.name === s.name && c.unit === s.unit;
+					}).each(function (c) {
+						c.toggle(s.visible);
+					});
+				});
+			}
+			initialized = true;
 		}
 
 		this.showAll = function (metrics) {
@@ -53,7 +83,7 @@
 
 		this.lastUpdate = moment(0);
 		this.updateError = null;
-		
+
 		this.updateInterval = function (interval) {
 			if (interval !== undefined) {
 				config.interval = interval;
@@ -62,7 +92,7 @@
 			}
 			return config.interval;
 		};
-				
+
 		this.clearData = function () {
 			charts.length = 0;
 			gauges.length = 0;
@@ -88,6 +118,7 @@
 					currentMetrics.push(metric);
 					_(metric.getCharts()).each(function (c) {
 						charts.push(c);
+						c.registry = self;
 					});
 				}
 			});

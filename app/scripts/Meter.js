@@ -36,6 +36,7 @@
 		};
 
 		this.toggle = function (value) {
+			this.countChart.toggle(value);
 			this.rateChart.toggle(value);
 		};
 

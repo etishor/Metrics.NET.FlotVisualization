@@ -37,6 +37,7 @@
 				}
 			}, options.options);
 
+		this.registry = null;
 		this.name = options.name;
 		this.unit = options.unit;
 		this.labels = labels;
@@ -49,6 +50,10 @@
 				visible = !visible;
 			} else {
 				visible = value;
+			}
+
+			if (this.registry) {
+				this.registry.chartUpdated(this);
 			}
 		};
 
