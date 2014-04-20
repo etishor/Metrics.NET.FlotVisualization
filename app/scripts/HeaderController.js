@@ -21,7 +21,12 @@
 				text : item.text
 			}
 		};
-		
+
+		$scope.healthInterval = 1000;
+		$scope.setHealthUpdateIntervel = function (interval) {
+			$scope.healthInterval = interval;
+			healthMonitor.setUpdateInterval(interval);
+		};
 	}
 
 	$.extend(true, this, { metrics: { HeaderController: HeaderController } });

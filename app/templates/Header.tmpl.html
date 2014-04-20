@@ -12,20 +12,33 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Last Update {{registry.lastUpdate.format('HH:mm:ss')}} <b class="caret"></b></a>
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Metrics<b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        <li class="dropdown-header">Last Update {{registry.lastUpdate.format('HH:mm:ss')}}</li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">
+                            <div>
+                                <a href="javascript:void(0)"
+                                    ng-click="registry.showAll()">show all</a>
+                                &nbsp|&nbsp;
+                                <a href="javascript:void(0)"
+                                    ng-click="registry.hideAll()">hide all</a>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Update every</li>
                         <li ng-class="{active:interval==100}">
-                            <a href="javascript:void(0)" ng-click="setInterval(100);">Update every 100ms</a></li>
+                            <a href="javascript:void(0)" ng-click="setInterval(100);">100 milliseconds</a></li>
                         <li ng-class="{active:interval==500}">
-                            <a href="javascript:void(0)" ng-click="setInterval(500);">Update every 500ms</a></li>
+                            <a href="javascript:void(0)" ng-click="setInterval(500);">500 milliseconds</a></li>
                         <li ng-class="{active:interval==1000}">
-                            <a href="javascript:void(0)" ng-click="setInterval(1000);">Update every 1s</a></li>
+                            <a href="javascript:void(0)" ng-click="setInterval(1000);">1 second</a></li>
                         <li ng-class="{active:interval==2000}">
-                            <a href="javascript:void(0)" ng-click="setInterval(2000);">Update every 2s</a></li>
+                            <a href="javascript:void(0)" ng-click="setInterval(2000);">2 seconds</a></li>
                         <li ng-class="{active:interval==5000}">
-                            <a href="javascript:void(0)" ng-click="setInterval(5000);">Update every 5s</a></li>
+                            <a href="javascript:void(0)" ng-click="setInterval(5000);">5 seconds</a></li>
                         <li ng-class="{active:interval==10000}">
-                            <a href="javascript:void(0)" ng-click="setInterval(10000);">Update every 10s</a></li>
+                            <a href="javascript:void(0)" ng-click="setInterval(10000);">10 seconds</a></li>
                         <li class="divider"></li>
                         <li ng-class="{active:interval==0}">
                             <a href="javascript:void(0)" ng-click="setInterval(0);">Don't update</a></li>
@@ -44,11 +57,25 @@
                                 <a href="javascript:void(0)"
                                     ng-click="registry.showAll(metric.data)">show all</a>
                                 &nbsp|&nbsp;
-                                <a href="javascript:void(0)"
+                                <a href="javascript:v   oid(0)"
                                     ng-click="registry.hideAll(metric.data)">hide all</a>
                             </div>
                         </li>
-                        <li ng-repeat="chart in metric.data">
+                        <li class="divider"></li>
+                        <li class="dropdown-header">
+                            <form role="form" class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Search {{metric.name}}" class="form-control" ng-model="search.name" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default form-control" ng-click="search.name = ''">&times;</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-repeat="chart in metric.data | filter:search ">
                             <label check-box-menu class="checkbox">
                                 <input type="checkbox" ng-checked="chart.isVisible()"
                                     ng-click="chart.toggle()" />{{chart.name}}</label>
@@ -73,6 +100,23 @@
                             <a class="healthy" data-toggle="modal" ng-click="setHealthItem(true,line)"
                                 data-target=".health-status-modal">{{line.name}} </a>
                         </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Update every</li>
+                        <li ng-class="{active:healthInterval==1000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(1000);">1 second</a></li>
+                        <li ng-class="{active:healthInterval==5000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(5000);">5 seconds</a></li>
+                        <li ng-class="{active:healthInterval==10000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(10000);">10 seconds</a></li>
+                        <li ng-class="{active:healthInterval==30000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(30000);">30 seconds</a></li>
+                        <li ng-class="{active:healthInterval==60000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(60000);">60 seconds</a></li>
+                        <li ng-class="{active:healthInterval==600000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(600000);">10 minutes</a></li>
+                        <li class="divider"></li>
+                        <li ng-class="{active:healthInterval==0}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(0);">Don't update</a></li>
                     </ul>
                 </li>
             </ul>

@@ -21,15 +21,31 @@
 			];
 		
 		this.showAll = function (metrics) {
-			_(metrics).each(function (m) {
-				m.toggle(true);
-			});
+			if (metrics) {
+				_(metrics).each(function (m) {
+					m.toggle(true);
+				});
+			} else {
+				this.showAll(gauges);
+				this.showAll(counters);
+				this.showAll(meters);
+				this.showAll(histograms);
+				this.showAll(timers);
+			}
 		};
 
 		this.hideAll = function (metrics) {
-			_(metrics).each(function (m) {
-				m.toggle(false);
-			});
+			if (metrics) {
+				_(metrics).each(function (m) {
+					m.toggle(false);
+				});
+			} else {
+				this.hideAll(gauges);
+				this.hideAll(counters);
+				this.hideAll(meters);
+				this.hideAll(histograms);
+				this.hideAll(timers);
+			}
 		};
 
 		this.lastUpdate = moment(0);

@@ -15,6 +15,11 @@
 			updateStatus();
 		};
 
+		this.setUpdateInterval = function (updateInterval) {
+			interval = updateInterval;
+			updateStatus();
+		};
+
 		function mapSection(section) {
 			return _(section).map(function (h, key) {
 				return { name: key, text: h };
