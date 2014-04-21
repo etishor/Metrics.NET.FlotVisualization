@@ -1,11 +1,17 @@
 ﻿(function () {
 	'use strict';
 
-	function HeaderController($scope, registry, healthMonitor) {
+	function HeaderController($scope, registry, healthMonitor, configService, $rootScope) {
 		$scope.registry = registry;
 		$scope.healthMonitor = healthMonitor;
-
 		$scope.clearData = registry.clearData;
+		$scope.config = configService.chartConfig();
+		
+		$scope.setChartSize = function (size) {
+			$scope.config.size = size;
+			configService.chartConfig($scope.config);
+			$rootScope.$broadcast('resize-chart', size);
+		};
 
 		$scope.setInterval = function (interval) {
 			$scope.interval = interval;

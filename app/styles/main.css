@@ -45,7 +45,8 @@ label.checkbox
 
     .chart-container label
     {
-        font-size:12px;
+        font-size:11px;
+        line-height: 18px;
     }
 
     .chart-container input[type=checkbox]
@@ -63,7 +64,7 @@ label.checkbox
 {
     position: absolute;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .xaxisLabel

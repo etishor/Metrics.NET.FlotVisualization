@@ -33,15 +33,20 @@
                             <a href="javascript:void(0)" ng-click="setInterval(500);">500 milliseconds</a></li>
                         <li ng-class="{active:registry.updateInterval()==1000}">
                             <a href="javascript:void(0)" ng-click="setInterval(1000);">1 second</a></li>
-                        <li ng-class="{active:registry.updateInterval()==2000}">
-                            <a href="javascript:void(0)" ng-click="setInterval(2000);">2 seconds</a></li>
                         <li ng-class="{active:registry.updateInterval()==5000}">
                             <a href="javascript:void(0)" ng-click="setInterval(5000);">5 seconds</a></li>
                         <li ng-class="{active:registry.updateInterval()==10000}">
                             <a href="javascript:void(0)" ng-click="setInterval(10000);">10 seconds</a></li>
-                        <li class="divider"></li>
                         <li ng-class="{active:registry.updateInterval()==0}">
                             <a href="javascript:void(0)" ng-click="setInterval(0);">Don't update</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Chart size</li>
+                        <li ng-class="{active:config.size==1}">
+                            <a href="javascript:void(0)" ng-click="setChartSize(1);">Small</a></li>
+                        <li ng-class="{active:config.size==2}">
+                            <a href="javascript:void(0)" ng-click="setChartSize(2);">Medium</a></li>
+                        <li ng-class="{active:config.size==3}">
+                            <a href="javascript:void(0)" ng-click="setChartSize(3);">Large</a></li>
                         <li class="divider"></li>
                         <li><a href="javascript:void(0)" ng-click="clearData();">Clear All Data</a></li>
                     </ul>

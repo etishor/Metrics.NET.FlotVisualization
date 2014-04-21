@@ -17,8 +17,8 @@
 				}
 			};
 		})
-		.controller('DashboardController', ['$scope', 'registry', metrics.DashboardController])
-		.controller('HeaderController', ['$scope', 'registry','healthMonitor', metrics.HeaderController])
+		.controller('DashboardController', ['$scope', 'registry','config', metrics.DashboardController])
+		.controller('HeaderController', ['$scope', 'registry','healthMonitor', 'config', '$rootScope', metrics.HeaderController])
 		.config(['$routeProvider', function ($routeProvider) {
 			$routeProvider
 				.when('/', { templateUrl: 'templates/Dashboard.tmpl.html', controller: 'DashboardController' });
