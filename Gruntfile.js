@@ -280,7 +280,9 @@ module.exports = function (grunt) {
 		},
 		inject: {
 			single: {
-				scriptSrc: '<%= yeoman.app %>/scripts/DemoDataGenerator.js',
+				scriptSrc: ['<%= yeoman.app %>/scripts/DemoDataGenerator.js',
+					'GoogleAnalytics.js'
+				],
 				files: {
 					'dist/index.demo.html': 'dist/index.full.html'
 				}
