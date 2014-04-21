@@ -1,9 +1,9 @@
 ﻿<div class="container-fluid">
     <div class="row">
-        <div ng-class="{'col-sm-6' : small, 'col-md-4' : small, 'col-lg-3' : small,
-                        'col-sm-12' : medium, 'col-md-6' : medium, 'col-lg-4' : medium,
-                        'col-sm-12' : large, 'col-md-12' : large, 'col-lg-6' : large }"
-            ng-if="chart.isVisible()" ng-repeat="chart in registry.getCharts()">
+        <div ng-class="{'col-sm-6 col-md-4 col-lg-3' : small,
+                        'col-sm-12 col-md-6 col-lg-4' : medium,
+                        'col-sm-12 col-md-12 col-lg-6' : large }"
+            ng-if="chart.visible" ng-repeat="chart in registry.getCharts()">
             <chart chart="chart"></chart>
         </div>
     </div>

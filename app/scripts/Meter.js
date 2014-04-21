@@ -41,8 +41,8 @@
 		};
 
 		this.isVisible = function () {
-			return this.rateChart.isVisible() ||
-				this.countChart.isVisible();
+			return this.rateChart.visible ||
+				this.countChart.visible;
 		};
 
 		this.getCharts = function () {

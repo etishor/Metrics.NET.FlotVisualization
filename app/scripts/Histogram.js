@@ -67,9 +67,9 @@
 		};
 
 		this.isVisible = function () {
-			return this.percentilesChart.isVisible() ||
-				this.countChart.isVisible() ||
-				this.minMaxChart.isVisible();
+			return this.percentilesChart.visible ||
+				this.countChart.visible ||
+				this.minMaxChart.visible;
 		};
 	}
 

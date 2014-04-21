@@ -33,7 +33,7 @@
 				return {
 					name: c.name,
 					unit: c.unit,
-					visible: c.isVisible()
+					visible: c.visible
 				};
 			}).value();
 			configService.registryConfig(config);

@@ -16,8 +16,7 @@
 	}
 
 	function Chart(options) {
-		var visible = false,
-			maxValues = options.maxValues || 100,
+		var maxValues = options.maxValues || 100,
 			labels = mapLabels(options),
 			isSingleSeries = labels.length <= 1,
 			chartOptions = $.extend(true, {
@@ -36,6 +35,7 @@
 				}
 			}, options.options);
 
+		this.visible = false;
 		this.registry = null;
 		this.name = options.name;
 		this.unit = options.unit;
@@ -46,18 +46,14 @@
 
 		this.toggle = function (value) {
 			if (value === undefined) {
-				visible = !visible;
+				this.visible = !this.visible;
 			} else {
-				visible = value;
+				this.visible = value;
 			}
 
 			if (this.registry) {
 				this.registry.chartUpdated(this);
 			}
-		};
-
-		this.isVisible = function () {
-			return visible;
 		};
 
 		this.updateValues = function (values) {
