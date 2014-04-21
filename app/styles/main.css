@@ -20,13 +20,13 @@ footer
     text-align:center;
 }
 
-label.checkbox
+.checkbox
 {
-    font-weight: normal;
-    font-size: 12px;
-    white-space: nowrap;
-    margin-left: 8px;
     margin-right: 6px;
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: normal;
+    white-space: nowrap;    
 }
 
 .checkbox, .dropdown a
@@ -39,9 +39,9 @@ label.checkbox
     height: 200px;
     padding: 5px;
     margin: 15px auto 15px auto;
-    border: 1px solid #ddd;
     background: #fff;
     background: linear-gradient(#eee 0, #fff 80px);
+    border: 1px solid #ddd;
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
@@ -56,8 +56,8 @@ label.checkbox
         top: 16px;
         right: 16px;
         font-size: 12px;
-        opacity: 0.2;
         color: #808080;
+        opacity: 0.2;
     }
 
         .chart-container .close:hover
@@ -71,12 +71,6 @@ label.checkbox
         line-height: 18px;
     }
 
-    .chart-container input[type=checkbox]
-    {
-        bottom: 1px;
-        position: relative;
-    }
-
     .chart-container .center-block
     {
         text-align: center;
@@ -85,15 +79,15 @@ label.checkbox
 .axisLabel
 {
     position: absolute;
-    text-align: center;
     font-size: 11px;
+    text-align: center;    
 }
 
 .xaxisLabel
 {
-    bottom: 0px;
-    text-align: center;
+    bottom: 0;
     width: 100%;
+    text-align: center;    
 }
 
 .yaxisLabel
@@ -118,11 +112,11 @@ label.checkbox
 
 .unhealthy
 {
-    color: #ff1c1c !important;
     font-weight: bold;
+    color: #ff1c1c !important;
 }
 
-pre.health-status
+.health-status
 {
     word-wrap: normal;
 }

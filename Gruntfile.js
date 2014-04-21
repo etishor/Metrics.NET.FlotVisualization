@@ -285,6 +285,12 @@ module.exports = function (grunt) {
 				src: 'dist/index.full.html',
 				dest: 'dist/index.full.html.gz'
 			}
+		},
+		recess: {
+			dist: {
+				options: {},
+				src: ['<%= yeoman.app %>/styles/*.css']
+			}
 		}
 	});
 
@@ -319,6 +325,8 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('build', [
 		'clean:dist',
+		'jshint',
+		'recess',
 		'bowerInstall',
 		'useminPrepare',
 		'concurrent:dist',
