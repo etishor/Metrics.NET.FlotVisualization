@@ -4,8 +4,12 @@
 	function HeaderController($scope, registry, healthMonitor, configService, $rootScope) {
 		$scope.registry = registry;
 		$scope.healthMonitor = healthMonitor;
-		$scope.clearData = registry.clearData;
 		$scope.config = configService.chartConfig();
+
+		$scope.clearData = function () {
+			registry.clearData();
+			configService.clear();
+		};
 		
 		$scope.setChartSize = function (size) {
 			$scope.config.size = size;

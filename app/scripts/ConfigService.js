@@ -35,6 +35,17 @@
 			return chartConfig;
 		};
 
+		this.clear = function () {			
+			registryConfig.interval = 500;
+			registryConfig.maxValues = 100;
+			healthConfig.interval = 5000;
+			chartConfig.size = 2;
+
+			localStorageService.remove('Metrics.Registry.Config');
+			localStorageService.remove('Metrics.Health.Config');			
+			localStorageService.remove('Metrics.Chart.Config');			
+		};
+
 		function save() {
 			localStorageService.add('Metrics.Registry.Config', registryConfig);
 			localStorageService.add('Metrics.Health.Config', healthConfig);
