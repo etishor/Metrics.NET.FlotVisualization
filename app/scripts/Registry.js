@@ -113,6 +113,7 @@
 
 		function updateMetrics(InstanceType, currentMetrics, newData, units) {
 			var existing = _(currentMetrics).map('name');
+			/* jshint unused:true */
 			_(newData).each(function (value, name) {
 				if (!_(existing).contains(name)) {
 					var metric = new InstanceType(name, units[name], config.maxValues);

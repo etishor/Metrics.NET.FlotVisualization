@@ -1,4 +1,4 @@
-﻿(function ($, angular, metrics) {
+﻿(function (angular, metrics) {
 	'use strict';
 
 	this.MainModule = angular.module('MainModule', ['ngRoute', 'LocalStorageModule'])
@@ -7,16 +7,7 @@
 		.service('registry', ['$timeout', '$http', 'endpoint', 'config' , metrics.Registry])
 		.service('healthMonitor', ['$timeout', '$http', 'endpoint', 'config', metrics.HealthMonitor])
 		.directive('chart', metrics.ChartDirective)
-		.directive('checkBoxMenu', function () {
-			return {
-				restrict: 'A',
-				link: function (scope, element) {
-					$(element).click(function (e) {
-						e.stopPropagation();
-					});
-				}
-			};
-		})
+		.directive('checkBoxMenu', metrics.CheckBoxMenuDirective)
 		.controller('DashboardController', ['$scope', 'registry','config', metrics.DashboardController])
 		.controller('HeaderController', ['$scope', 'registry','healthMonitor', 'config', '$rootScope', metrics.HeaderController])
 		.config(['$routeProvider', function ($routeProvider) {
@@ -24,4 +15,4 @@
 				.when('/', { templateUrl: 'templates/Dashboard.tmpl.html', controller: 'DashboardController' });
 		}]);
 
-}).call(this, this.jQuery, this.angular, this.metrics);
+}).call(this, this.angular, this.metrics);

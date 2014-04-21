@@ -1,4 +1,4 @@
-﻿(function ($, moment, metrics) {
+﻿(function ($, metrics) {
 	'use strict';
 
 	function Histogram(name, unit) {
@@ -75,4 +75,4 @@
 
 	$.extend(true, this, { metrics: { Histogram: Histogram } });
 
-}).call(this, this.jQuery, this.moment, this.metrics);
+}).call(this, this.jQuery, this.metrics);

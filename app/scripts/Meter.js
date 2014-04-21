@@ -1,4 +1,4 @@
-﻿(function ($, moment, metrics) {
+﻿(function ($, metrics) {
 	'use strict';
 
 	function Meter(name, unit, maxValues) {
@@ -52,4 +52,4 @@
 
 	$.extend(true, this, { metrics: { Meter: Meter } });
 
-}).call(this, this.jQuery, this.moment, this.metrics);
+}).call(this, this.jQuery, this.metrics);

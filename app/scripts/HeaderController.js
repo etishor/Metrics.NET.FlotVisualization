@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function ($) {
 	'use strict';
 
 	function HeaderController($scope, registry, healthMonitor, configService, $rootScope) {
@@ -34,4 +34,4 @@
 
 	$.extend(true, this, { metrics: { HeaderController: HeaderController } });
 
-}).call(this);
+}).call(this, this.jQuery);

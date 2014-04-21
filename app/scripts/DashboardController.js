@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function ($) {
 	'use strict';
 
 	function DashboardController($scope, registry, configService) {
@@ -8,6 +8,7 @@
 		$scope.medium = configService.chartConfig().size === 2;
 		$scope.large = configService.chartConfig().size === 3;
 
+		/* jshint unused:true */
 		$scope.$on('resize-chart', function (event, size) {
 			$scope.small = size === 1;
 			$scope.medium = size === 2;
@@ -17,4 +18,4 @@
 
 	$.extend(true, this, { metrics: { DashboardController: DashboardController } });
 
-}).call(this);
+}).call(this, this.jQuery);

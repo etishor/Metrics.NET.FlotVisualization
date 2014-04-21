@@ -33,7 +33,7 @@
 				save();
 			}
 			return chartConfig;
-		}
+		};
 
 		function save() {
 			localStorageService.add('Metrics.Registry.Config', registryConfig);
