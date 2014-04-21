@@ -91,7 +91,7 @@
 			$provide.decorator('$http', ['$delegate', function ($delegate) {
 				var original = $delegate.get;
 
-				$delegate.get = function (url) {
+				$delegate.get = function (url, data, callback) {
 					var result = {};
 					if (_(url).isString() && url.indexOf('/json') > 0) {
 						result.success = function (fn) {
@@ -114,7 +114,7 @@
 						};
 						return result;
 					}
-					return original(url);
+					return original(url, data, callback);
 				};
 
 				return $delegate;

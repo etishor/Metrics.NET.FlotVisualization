@@ -274,8 +274,17 @@ module.exports = function (grunt) {
 			all: {
 				files: {
 					'dist/index.full.html': 'dist/index.html',
+					'dist/index.demo.html': 'dist/index.html'
 				},
 			},
+		},
+		inject: {
+			single: {
+				scriptSrc: '<%= yeoman.app %>/scripts/DemoDataGenerator.js',
+				files: {
+					'dist/index.demo.html': 'dist/index.full.html'
+				}
+			}
 		},
 		compress: {
 			main: {
@@ -341,6 +350,7 @@ module.exports = function (grunt) {
 		'usemin',
 		'htmlmin',
 		'smoosher',
+		'inject',
 		'compress'
 	]);
 
