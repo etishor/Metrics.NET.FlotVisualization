@@ -22,18 +22,17 @@
 			isSingleSeries = labels.length <= 1,
 			chartOptions = $.extend(true, {
 				grid: { margin: { top: 8, bottom: 20, left: 20 } },
-				canvas: true,
 				legend: { show: !isSingleSeries, position: 'nw' },
 				xaxis: { show: false, min: 0, max: maxValues },
-				yaxis: { show: true, min: 0 },
+				yaxis: { show: true, min: 0, font: { size: 10, color: '#000' } },
 				series: {
 					lines: {
 						show: true,
-						lineWidth: isSingleSeries ? 2 : 2,
+						lineWidth: isSingleSeries ? 3 : 2,
 						fill: isSingleSeries
 					},
 					shadowSize: isSingleSeries ? 2 : 1,
-					color: isSingleSeries ? 3 : undefined
+					color: isSingleSeries ? 8 : undefined
 				}
 			}, options.options);
 
@@ -78,7 +77,7 @@
 
 					return {
 						label: label,
-						color : idx,
+						color: idx,
 						data: v.getLast()
 					};
 				}).compact().value();
