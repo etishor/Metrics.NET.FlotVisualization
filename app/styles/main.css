@@ -1,10 +1,128 @@
-﻿body
+﻿html
 {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    position: relative;
+    min-height: 100%;
 }
 
-.chart
+body
 {
-    margin-left: 10px;
+    padding-top: 55px;
+    margin-bottom: 20px;
+}
+
+footer
+{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    font-size: 11px;
+    text-align:center;
+}
+
+.checkbox
+{
+    margin-right: 6px;
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: normal;
+    white-space: nowrap;    
+}
+
+.checkbox, .dropdown a
+{
+    cursor: pointer;
+}
+
+.chart-container
+{
+    height: 200px;
+    padding: 5px;
+    margin: 15px auto 15px auto;
+    background: #fff;
+    background: linear-gradient(#eee 0, #fff 80px);
+    border: 1px solid #ddd;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+    .chart-container .legendLabel
+    {
+        font-size: 11px;
+    }
+
+    .chart-container .close
+    {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-size: 12px;
+        color: #808080;
+        opacity: 0.2;
+    }
+
+        .chart-container .close:hover
+        {
+            opacity: 1;
+        }
+
+    .chart-container label
+    {
+        font-size: 11px;
+        line-height: 18px;
+    }
+
+    .chart-container .center-block
+    {
+        text-align: center;
+    }
+
+.axisLabel
+{
+    position: absolute;
+    font-size: 11px;
+    text-align: center;    
+}
+
+.xaxisLabel
+{
+    bottom: 0;
+    width: 100%;
+    text-align: center;    
+}
+
+.yaxisLabel
+{
+    top: 50%;
+    left: 2px;
+    transform: rotate(-90deg);
+    transform-origin: 0 0;
+}
+
+.ie7 .yaxisLabel, .ie8 .yaxisLabel
+{
+    top: 40%;
+    font-size: 36px;
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.0, M12=0.33, M21=-0.33, M22=0.0,sizingMethod='auto expand');
+}
+
+.healthy
+{
+    color: #05d116 !important;
+}
+
+.unhealthy
+{
+    font-weight: bold;
+    color: #ff1c1c !important;
+}
+
+.health-status
+{
+    word-wrap: normal;
+}
+
+.error-report p
+{
+    padding: 15px;
+    text-align: center;
 }

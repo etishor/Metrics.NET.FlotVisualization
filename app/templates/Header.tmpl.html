@@ -1,0 +1,160 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Metrics ({{registry.updateInterval()}} ms)<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Last Update {{registry.lastUpdate.format('HH:mm:ss')}}</li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">
+                            <div>
+                                <a href="javascript:void(0)"
+                                    ng-click="registry.showAll()">show all</a>
+                                &nbsp|&nbsp;
+                                <a href="javascript:void(0)"
+                                    ng-click="registry.hideAll()">hide all</a>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Update every</li>
+                        <li ng-class="{active:registry.updateInterval()==100}">
+                            <a href="javascript:void(0)" ng-click="setInterval(100);">100 milliseconds</a></li>
+                        <li ng-class="{active:registry.updateInterval()==500}">
+                            <a href="javascript:void(0)" ng-click="setInterval(500);">500 milliseconds</a></li>
+                        <li ng-class="{active:registry.updateInterval()==1000}">
+                            <a href="javascript:void(0)" ng-click="setInterval(1000);">1 second</a></li>
+                        <li ng-class="{active:registry.updateInterval()==5000}">
+                            <a href="javascript:void(0)" ng-click="setInterval(5000);">5 seconds</a></li>
+                        <li ng-class="{active:registry.updateInterval()==10000}">
+                            <a href="javascript:void(0)" ng-click="setInterval(10000);">10 seconds</a></li>
+                        <li ng-class="{active:registry.updateInterval()==0}">
+                            <a href="javascript:void(0)" ng-click="setInterval(0);">Don't update</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Chart size</li>
+                        <li ng-class="{active:config.size==1}">
+                            <a href="javascript:void(0)" ng-click="setChartSize(1);">Small</a></li>
+                        <li ng-class="{active:config.size==2}">
+                            <a href="javascript:void(0)" ng-click="setChartSize(2);">Medium</a></li>
+                        <li ng-class="{active:config.size==3}">
+                            <a href="javascript:void(0)" ng-click="setChartSize(3);">Large</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0)" ng-click="clearData();">Reset Config & Data</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav" ng-repeat="metric in registry.getMetricsMeta()">
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">{{metric.name}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">
+                            <div>
+                                <a href="javascript:void(0)"
+                                    ng-click="registry.showAll(metric.data)">show all</a>
+                                &nbsp|&nbsp;
+                                <a href="javascript:void(0)"
+                                    ng-click="registry.hideAll(metric.data)">hide all</a>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">
+                            <form role="form" class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Search {{metric.name}}" class="form-control" ng-model="search.name" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default form-control" ng-click="search.name = ''">&times;</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-repeat="chart in metric.data | filter:search ">
+                            <label check-box-menu class="checkbox">
+                                <input type="checkbox" ng-checked="chart.isVisible()"
+                                    ng-click="chart.toggle()" />{{chart.name}}</label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle"
+                        ng-class="{healthy:healthMonitor.isHealthy, unhealthy: !healthMonitor.isHealthy}"
+                        data-toggle="dropdown">Health Status ({{healthMonitor.updateInterval() / 1000}} s)<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li ng-show="healthMonitor.unhealthy.length" class="dropdown-header">Unhealthy</li>
+                        <li ng-repeat="line in healthMonitor.unhealthy">
+                            <a class="unhealthy" data-toggle="modal" ng-click="setHealthItem(false,line)"
+                                data-target=".health-status-modal">{{line.name}} </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-show="healthMonitor.healthy.length" class="dropdown-header">Healthy</li>
+                        <li ng-repeat="line in healthMonitor.healthy">
+                            <a class="healthy" data-toggle="modal" ng-click="setHealthItem(true,line)"
+                                data-target=".health-status-modal">{{line.name}} </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Update every</li>
+                        <li ng-class="{active:healthMonitor.updateInterval()==1000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(1000);">1 second</a></li>
+                        <li ng-class="{active:healthMonitor.updateInterval()==5000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(5000);">5 seconds</a></li>
+                        <li ng-class="{active:healthMonitor.updateInterval()==10000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(10000);">10 seconds</a></li>
+                        <li ng-class="{active:healthMonitor.updateInterval()==30000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(30000);">30 seconds</a></li>
+                        <li ng-class="{active:healthMonitor.updateInterval()==60000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(60000);">60 seconds</a></li>
+                        <li ng-class="{active:healthMonitor.updateInterval()==600000}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(600000);">10 minutes</a></li>
+                        <li class="divider"></li>
+                        <li ng-class="{active:healthMonitor.updateInterval()==0}">
+                            <a href="javascript:void(0)" ng-click="setHealthUpdateIntervel(0);">Don't update</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container" ng-if="registry.updateError || healthMonitor.updateError">
+    <div class="row error-report" ng-if="registry.updateError">
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{registry.updateError}} <a href="javascript:void(0)" ng-click="registry.retry()">retry</a>
+        </div>
+    </div>
+    <div class="row error-report" ng-if="healthMonitor.updateError">
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{healthMonitor.updateError}} <a href="javascript:void(0)" ng-click="healthMonitor.retry()">retry</a>
+        </div>
+    </div>
+</div>
+
+<div class="health-status-modal modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" ng-class="{healthy:healthItem.isHealthy, unhealthy: !healthItem.isHealthy}">{{healthItem.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <pre class="health-status">{{healthItem.text}}</pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

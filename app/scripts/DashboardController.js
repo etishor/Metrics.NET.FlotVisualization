@@ -1,75 +1,21 @@
-﻿(function (_, metrics) {
+﻿(function ($) {
 	'use strict';
 
-	var alertShown = false;
+	function DashboardController($scope, registry, configService) {
+		$scope.registry = registry;
 
-	function DashboardController($scope, $interval, $http, $window, metricsEndpoint, metricsService) {
-		var updatesInterval;
+		$scope.small = configService.chartConfig().size === 1;
+		$scope.medium = configService.chartConfig().size === 2;
+		$scope.large = configService.chartConfig().size === 3;
 
-		function startUpdates() {
-			updatesInterval = $interval(updateMetrics, 500);
-		}
-
-		function stopUpdates() {
-			if (updatesInterval) {
-				$interval.cancel(updatesInterval);
-			}
-		}
-
-		function updateMetrics() {
-			$http.get(metricsEndpoint).success(function (data) {
-				metricsService.update(data);
-				updateDashboard();
-			}).error(function (reason) {
-				stopUpdates();
-				if (!alertShown) {
-					alertShown = true;
-					$window.alert('Error reading JSON data from [' + metricsEndpoint + ']. ' + reason);
-				}
-			});
-		}
-
-		function updateDashboard() {
-			$scope.metricNames = metricsService.getSeriesNames();
-
-			_($scope.charts).each(function (c) {
-				c.update(metricsService);
-			});
-		}
-
-		$scope.createChart = function () {
-			if ($scope.currentChart.hasMetrics()) {
-				$scope.charts.splice(0, 0, $scope.currentChart);
-				$scope.currentChart = new metrics.Chart();
-			}
-		};
-
-		$scope.createChartFromMetric = function (name) {
-			$scope.charts.splice(0, 0, new metrics.Chart(name, [name]));
-		};
-
-		$scope.addToChart = function () {
-			$scope.currentChart.addMetric($scope.metricSearch);
-			$scope.metricSearch = '';
-		};
-
-		$scope.removeChart = function (chart) {
-			$scope.charts.splice($scope.charts.indexOf(chart), 1);
-		};
-
-		$scope.metricSearch = '';
-
-		$scope.currentChart = new metrics.Chart();
-
-		$scope.charts = [new metrics.Chart('CPU Usage', ['System.CPU Usage'])];
-
-		$scope.$on('$destroy', function () {
-			stopUpdates();
+		/* jshint unused:true */
+		$scope.$on('resize-chart', function (event, size) {
+			$scope.small = size === 1;
+			$scope.medium = size === 2;
+			$scope.large = size === 3;
 		});
-
-		startUpdates();
 	}
 
 	$.extend(true, this, { metrics: { DashboardController: DashboardController } });
 
-}).call(this, this._, this.metrics);
+}).call(this, this.jQuery);

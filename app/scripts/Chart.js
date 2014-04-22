@@ -1,39 +1,86 @@
 ﻿(function ($, _) {
-    'use strict';
+	'use strict';
 
-    function Chart(name, metrics) {
-        var self = this;
-        this.name = name;
-        this.data = [];
-        this.metrics = metrics || [];
-        this.options = {
-            legend: { margin: [-130, 0] },
-            xaxis: { show: false, min: 0, max: 50 }
-        };
+	function mapLabels(options) {
+		if (!options.labels) {
+			return [];
+		}
 
-        function updateName() {
-            self.name = self.metrics[0];
-        }
+		return _(options.labels).map(function (l) {
+			if (_(l).isString()) {
+				return { label: l, visible: true };
+			} else {
+				return l;
+			}
+		}).value();
+	}
 
-        this.addMetric = function (metric) {
-            this.metrics.push(metric);
-            this.metrics = _(this.metrics).unique().where(function (m) {
-                return m && m.length > 0;
-            }).value();
-            updateName();
-        };
+	function Chart(options) {
+		var maxValues = options.maxValues || 100,
+			labels = mapLabels(options),
+			isSingleSeries = labels.length <= 1,
+			chartOptions = $.extend(true, {
+				grid: { margin: { top: 8, bottom: 20, left: 20 } },
+				legend: { show: !isSingleSeries, position: 'nw' },
+				xaxis: { show: false, min: 0, max: maxValues },
+				yaxis: { show: true, min: 0, font: { size: 10, color: '#000' } },
+				series: {
+					lines: {
+						show: true,
+						lineWidth: isSingleSeries ? 3 : 2,
+						fill: isSingleSeries
+					},
+					shadowSize: isSingleSeries ? 2 : 1,
+					color: isSingleSeries ? 8 : undefined
+				}
+			}, options.options);
 
-        this.update = function (registry) {
-            this.data = registry.getSeries(this.metrics);
-        };
+		this.visible = false;
+		this.registry = null;
+		this.name = options.name;
+		this.unit = options.unit;
+		this.labels = labels;
 
-        this.hasMetrics = function () {
-            return _(this.metrics).any();
-        };
+		this.data = [];
+		this.options = chartOptions;
 
-        updateName();
-    }
+		this.toggle = function (value) {
+			if (value === undefined) {
+				this.visible = !this.visible;
+			} else {
+				this.visible = value;
+			}
 
-    $.extend(true, this, { metrics: { Chart: Chart } });
+			if (this.registry) {
+				this.registry.chartUpdated(this);
+			}
+		};
+
+		this.updateValues = function (values) {
+			if (!_(values).isArray()) {
+				this.data = [{
+					data: values.getLast()
+				}];
+			} else {
+				this.data = _(values).map(function (v, idx) {
+					var label;
+					if (idx < labels.length) {
+						if (!labels[idx].visible) {
+							return;
+						}
+						label = labels[idx].label;
+					}
+
+					return {
+						label: label,
+						color: idx,
+						data: v.getLast()
+					};
+				}).compact().value();
+			}
+		};
+	}
+
+	$.extend(true, this, { metrics: { Chart: Chart } });
 
 }).call(this, this.jQuery, this._);

@@ -11,22 +11,23 @@
     <link href="styles/main.css" rel="stylesheet" />
     <!-- endbuild -->
     <script>
-        window.metricsEndpoint = 'http://localhost:1234/json';
+        window.metricsEndpoint = 'http://localhost:1234/metrics';
     </script>
 </head>
 <body id="ng-app" ng-app="MainModule">
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Metrics.NET Dashboard</a>
-            </div>
-        </div>
-    </div>
-
+    <div ng-controller="HeaderController" ng-include="'templates/Header.tmpl.html'"></div>
     <div class="container-fluid">
         <div ng-view></div>
     </div>
-
+    <footer>
+        <div class="container">
+            <p class="text-muted">
+                <a title="Metrics Library" target="_blank" href="https://github.com/etishor/Metrics.NET">Metrics.NET</a>
+                <a title="Metrics Flot Visualization" target="_blank" href="https://github.com/etishor/Metrics.NET.FlotVisualization">Flot Visualization App</a>
+                Copyright 2014 &copy; <a title="Iulian Margarintescu" target="_blank" href="http://www.erata.net">Iulian Margarintescu</a>
+            </p>
+        </div>
+    </footer>
     <!-- build:js app.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -35,17 +36,25 @@
     <script src="bower_components/flot/jquery.flot.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-flot/angular-flot.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
     <!-- endbower -->
-    <script src="scripts/Metrics/ValueSeries.js"></script>
-    <script src="scripts/Metrics/MetricSet.js"></script>
-    <script src="scripts/Metrics/Meter.js"></script>
-    <script src="scripts/Metrics/Histogram.js"></script>
-    <script src="scripts/Metrics/Timer.js"></script>
-    <script src="scripts/Metrics/MetricsRegistry.js"></script>
+    <script src="bower_components/flot/jquery.flot.resize.js"></script>
+    <script src="scripts/ValueSeries.js"></script>
     <script src="scripts/Chart.js"></script>
+    <script src="scripts/SimpleMetric.js"></script>
+    <script src="scripts/Meter.js"></script>
+    <script src="scripts/Histogram.js"></script>
+    <script src="scripts/Timer.js"></script>
+    <script src="scripts/ConfigService.js"></script>
+    <script src="scripts/Registry.js"></script>
+    <script src="scripts/HealthMonitor.js"></script>
+    <script src="scripts/ChartDirective.js"></script>
+    <script src="scripts/CheckBoxMenuDirective.js"></script>
+    <script src="scripts/HeaderController.js"></script>
     <script src="scripts/DashboardController.js"></script>
     <script src="scripts/MainModule.js"></script>
     <!-- endbuild -->
+    <!-- inject -->
 </body>
 </html>
