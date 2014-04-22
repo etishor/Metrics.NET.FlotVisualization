@@ -24,6 +24,10 @@
 		this.toggle = function (value) {
 			this.chart.toggle(value);
 		};
+
+		this.isVisible = function () {
+		    return this.chart.visible;
+		};
 	}
 
 	$.extend(true, this, { metrics: { SimpleMetric: SimpleMetric } });
