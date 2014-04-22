@@ -277,12 +277,18 @@ module.exports = function (grunt) {
             },
         },
         inject: {
-            single: {
+            analytics: {
                 scriptSrc: ['<%= yeoman.app %>/scripts/DemoDataGenerator.js',
                     'GoogleAnalytics.js'
                 ],
                 files: {
                     'dist/index.demo.html': 'dist/index.full.html'
+                }
+            },
+            cleanup: {
+                scriptSrc: [],
+                files: {
+                    'dist/index.full.html': 'dist/index.full.html'
                 }
             }
         },
