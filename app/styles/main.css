@@ -98,13 +98,6 @@ footer
     transform-origin: 0 0;
 }
 
-.ie7 .yaxisLabel, .ie8 .yaxisLabel
-{
-    top: 40%;
-    font-size: 36px;
-    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.0, M12=0.33, M21=-0.33, M22=0.0,sizingMethod='auto expand');
-}
-
 .healthy
 {
     color: #05d116 !important;
