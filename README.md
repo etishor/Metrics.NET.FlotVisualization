@@ -40,4 +40,4 @@ You also need to edit app\index.html to specify the path to the metrics endpoint
 ![Sample Visualization](https://raw.githubusercontent.com/etishor/Metrics.NET.FlotVisualization/master/sample.png)
 
 ###License
-This application is release under Apache 2.0 License ( see LICENSE ) Copyright (c) 2014 Iulian Margarintescu
+This application is released under Apache 2.0 License ( see LICENSE ) Copyright (c) 2014 Iulian Margarintescu
