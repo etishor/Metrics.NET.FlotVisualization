@@ -22,7 +22,7 @@
 	"maxparams"     : 9,
 	"maxdepth"      : 3,
 	"maxstatements" : 34,
-	"maxcomplexity" : 13,
+	"maxcomplexity" : 14,
 	"maxlen"        : 200,
 
 	"smarttabs"     : true,
