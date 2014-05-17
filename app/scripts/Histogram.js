@@ -4,6 +4,7 @@
 	function Histogram(name, unit) {
 		var options = { points: 100 },
 			count = new metrics.ValueSeries(options.points),
+			last = new metrics.ValueSeries(options.points),
 			max = new metrics.ValueSeries(options.points),
 			mean = new metrics.ValueSeries(options.points),
 			min = new metrics.ValueSeries(options.points),
@@ -22,6 +23,11 @@
 		this.countChart = new metrics.Chart(name, 'count', options.points);
 		this.countChart.options.yaxis.min = 0;
 
+		this.lastValueChart = new metrics.Chart({
+			name: name + ' Last Value',
+			unit: unit
+		}, options.points);
+
 		this.minMaxChart = new metrics.Chart({
 			name: name + ' Min/Max',
 			unit: unit,
@@ -37,6 +43,7 @@
 
 		this.update = function (value, time) {
 			count.push(value ? value.Count : undefined);
+			last.push(value ? value.LastValue : undefined);
 			max.push(value ? value.Max : undefined);
 			mean.push(value ? value.Mean : undefined);
 			min.push(value ? value.Min : undefined);
@@ -53,23 +60,26 @@
 			}
 
 			this.countChart.updateValues(count);
+			this.lastValueChart.updateValues(last);
 			this.minMaxChart.updateValues([max, mean, min, stdDev]);
 			this.percentilesChart.updateValues([p75, p95, p98, p99, p999]);
 		};
 
 		this.getCharts = function () {
-			return [this.countChart, this.minMaxChart, this.percentilesChart];
+			return [this.countChart, this.lastValueChart, this.minMaxChart, this.percentilesChart];
 		};
 
 		this.toggle = function (value) {
+			this.lastValueChart.toggle(value);
 			this.minMaxChart.toggle(value);
 			this.percentilesChart.toggle(value);
 		};
 
 		this.isVisible = function () {
-			return this.percentilesChart.visible ||
-				this.countChart.visible ||
-				this.minMaxChart.visible;
+			return this.countChart.visible ||
+				this.lastValueChart.visible ||
+				this.minMaxChart.visible || 
+				this.percentilesChart.visible;
 		};
 	}
 
