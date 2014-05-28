@@ -144,7 +144,16 @@
 		};
 
 		function updateValues() {
-			$http.get(endpoint + '/json').success(function (data) {
+		    var jsonUri = 'json';
+		    if (endpoint) {
+		        if (endpoint[endpoint.length - 1] === '/') {
+		            jsonUri = endpoint + jsonUri;
+		        } else {
+		            jsonUri = endpoint + '/' + jsonUri;
+		        }
+		    }
+
+			$http.get(jsonUri).success(function (data) {
 				self.updateError = null;
 				update(data);
 				if (timer === null) {

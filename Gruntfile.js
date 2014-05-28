@@ -306,6 +306,13 @@ module.exports = function (grunt) {
                 options: {},
                 src: ['<%= yeoman.app %>/styles/*.css']
             }
+        },
+        targethtml: {
+            dist: {
+                files: {
+                    'dist/index.html': 'dist/index.html'
+                }
+            }
         }
     });
 
@@ -354,6 +361,7 @@ module.exports = function (grunt) {
         'uglify',
         'rev',
         'usemin',
+        'targethtml',
         'htmlmin',
         'smoosher',
         'inject',

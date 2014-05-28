@@ -41,7 +41,16 @@
 		}
 
 		function updateStatus() {
-			$http.get(endpoint + '/health').success(function (data) {
+		    var healthUri = 'health';
+		    if (endpoint) {
+		        if (endpoint[endpoint.length - 1] === '/') {
+		            healthUri = endpoint + healthUri;
+		        } else {
+		            healthUri = endpoint + '/' + healthUri;
+		        }
+		    }
+
+		    $http.get(healthUri).success(function (data) {
 				update(data);
 			}).error(function (data, status) {
 				if (status === 500 && _(data).isObject() && data.IsHealthy === false) {

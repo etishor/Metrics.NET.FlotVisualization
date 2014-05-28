@@ -2,7 +2,7 @@
 	'use strict';
 
 	this.MainModule = angular.module('MainModule', ['ngRoute', 'LocalStorageModule'])
-		.value('endpoint', window.metricsEndpoint || '/')
+		.value('endpoint', window.metricsEndpoint || null)
 		.service('config', ['localStorageService', metrics.ConfigService])
 		.service('registry', ['$timeout', '$http', 'endpoint', 'config' , metrics.Registry])
 		.service('healthMonitor', ['$timeout', '$http', 'endpoint', 'config', metrics.HealthMonitor])

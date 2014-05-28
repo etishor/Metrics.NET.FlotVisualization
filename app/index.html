@@ -12,9 +12,11 @@
     <!-- build:css(.tmp) app.css -->
     <link href="styles/main.css" rel="stylesheet" />
     <!-- endbuild -->
+    <!--(if target dev)><!-->
     <script>
         window.metricsEndpoint = 'http://localhost:1234/metrics';
     </script>
+    <!--<!(endif)-->
 </head>
 <body id="ng-app" ng-app="MainModule">
     <div ng-controller="HeaderController" ng-include="'templates/Header.tmpl.html'"></div>
