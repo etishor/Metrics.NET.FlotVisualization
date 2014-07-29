@@ -56,7 +56,7 @@
 				if (status === 500 && _(data).isObject() && data.IsHealthy === false) {
 					update(data);
 				} else {
-					self.updateError = 'Error reading Health Status data from ' + endpoint + '/health. Update stopped.';
+					self.updateError = 'Error reading Health Status data from ' + (endpoint || '') + '/health. Update stopped.';
 				}
 			});
 		}

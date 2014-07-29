@@ -163,7 +163,7 @@
 					timer = $timeout(updateValues, config.interval);
 				}
 			}).error(function () {
-				self.updateError = 'Error reading metric data from ' + endpoint + '/json. Update stopped.';
+				self.updateError = 'Error reading metric data from ' + (endpoint || '') + '/json. Update stopped.';
 			});
 		}
 
