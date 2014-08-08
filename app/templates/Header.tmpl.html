@@ -60,7 +60,7 @@
                             <div>
                                 <a href="javascript:void(0)"
                                     ng-click="registry.showAll(metric.data)">show all</a>
-                                &nbsp|&nbsp;
+                                &nbsp;|&nbsp;
                                 <a href="javascript:void(0)"
                                     ng-click="registry.hideAll(metric.data)">hide all</a>
                             </div>
@@ -79,10 +79,13 @@
                             </form>
                         </li>
                         <li class="divider"></li>
-                        <li ng-repeat="chart in metric.data | filter:search ">
-                            <label check-box-menu class="checkbox">
-                                <input type="checkbox" ng-checked="chart.isVisible()"
-                                    ng-click="chart.toggle()" />{{chart.name}}</label>
+                        <li ng-repeat="chart in metric.data | filter:search">
+                            <div class="checkbox">
+                                <label check-box-menu>
+                                    <input type="checkbox" ng-checked="chart.isVisible()"
+                                           ng-click="chart.toggle()" />{{chart.name}}
+                                </label>
+                            </div>
                         </li>
                     </ul>
                 </li>
