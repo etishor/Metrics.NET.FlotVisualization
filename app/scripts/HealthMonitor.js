@@ -36,6 +36,9 @@
 			self.unhealthy = mapSection(status.Unhealthy);
 			self.healthy = mapSection(status.Healthy);
 			if (config.interval > 0) {
+			    if (timer !== null) {
+			        $timeout.cancel(timer);
+			    }
 				timer = $timeout(updateStatus, config.interval);
 			}
 		}

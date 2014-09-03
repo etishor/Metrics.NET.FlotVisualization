@@ -158,6 +158,8 @@
 				update(data);
 				if (timer === null) {
 					initialSetup();
+				} else {
+				    $timeout.cancel(timer);
 				}
 				if (config.interval > 0) {
 					timer = $timeout(updateValues, config.interval);
