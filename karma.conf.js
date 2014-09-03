@@ -6,6 +6,11 @@ module.exports = function (config) {
 		// base path, that will be used to resolve files and exclude
 		basePath: '',
 
+		plugins: [
+			'karma-jasmine',
+			'karma-phantomjs-launcher'
+		],
+
 		// testing framework to use (jasmine/mocha/qunit/...)
 		frameworks: ['jasmine'],
 

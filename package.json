@@ -46,6 +46,7 @@
     "grunt-recess": "^1.0.0",
     "grunt-rev": "^0.1.0",
     "grunt-svgmin": "^1.0.0",
+    "grunt-targethtml": "^0.2.6",
     "grunt-usemin": "^2.4.0",
     "jshint-stylish": "^0.4.0",
     "karma": "^0.12.23",
@@ -54,8 +55,7 @@
     "karma-ng-scenario": "^0.1.0",
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "^0.6.0",
-    "time-grunt": "^1.0.0",
-    "grunt-targethtml": "^0.2.6"
+    "time-grunt": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
