@@ -40,7 +40,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-html-smoosher": "^0.1.3",
     "grunt-inject": "^0.1.1",
-    "grunt-karma": "^0.8.3",
+    "grunt-karma": "^0.9.0",
     "grunt-newer": "^0.7.0",
     "grunt-ngmin": "^0.0.3",
     "grunt-recess": "^1.0.0",
