@@ -122,12 +122,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        bowerInstall: {
-            app: {
-                src: ['<%= yeoman.app %>/index.html'],
-                ignorePath: '<%= yeoman.app %>/'
-            }
-        },
         rev: {
             dist: {
                 files: {
@@ -200,16 +194,6 @@ module.exports = function (grunt) {
                     cwd: '<%= yeoman.dist %>',
                     src: ['*.html', 'views/{,*/}*.html'],
                     dest: '<%= yeoman.dist %>'
-                }]
-            }
-        },
-        ngmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/concat/scripts',
-                    src: '*.js',
-                    dest: '.tmp/concat/scripts'
                 }]
             }
         },
@@ -351,13 +335,11 @@ module.exports = function (grunt) {
         'clean:dist',
         'jshint',
         'recess',
-        'bowerInstall',
         'concurrent:dist',
         'useminPrepare',        
         'autoprefixer',
         'ngtemplates',
         'concat',
-        'ngmin',
         'copy:dist',
         'cssmin',
         'uglify',
