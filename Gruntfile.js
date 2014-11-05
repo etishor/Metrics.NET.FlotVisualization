@@ -122,12 +122,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        bowerInstall: {
-            app: {
-                src: ['<%= yeoman.app %>/index.html'],
-                ignorePath: '<%= yeoman.app %>/'
-            }
-        },
         rev: {
             dist: {
                 files: {
@@ -200,16 +194,6 @@ module.exports = function (grunt) {
                     cwd: '<%= yeoman.dist %>',
                     src: ['*.html', 'views/{,*/}*.html'],
                     dest: '<%= yeoman.dist %>'
-                }]
-            }
-        },
-        ngmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/concat/scripts',
-                    src: '*.js',
-                    dest: '.tmp/concat/scripts'
                 }]
             }
         },
@@ -324,7 +308,6 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'bowerInstall',
             'concurrent:server',
             'autoprefixer',
             'connect:livereload',
@@ -337,25 +320,25 @@ module.exports = function (grunt) {
         grunt.task.run(['serve:' + target]);
     });
 
+
     grunt.registerTask('test', [
-        'clean:server',
+/*        'clean:server',
         'concurrent:test',
         'autoprefixer',
         'connect:test',
         'karma'
+*/		
     ]);
 
     grunt.registerTask('build', [
         'clean:dist',
         'jshint',
         'recess',
-        'bowerInstall',
         'concurrent:dist',
         'useminPrepare',        
         'autoprefixer',
         'ngtemplates',
         'concat',
-        'ngmin',
         'copy:dist',
         'cssmin',
         'uglify',
@@ -370,7 +353,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', [
         'newer:jshint',
-        'test',
         'build'
     ]);
 };
