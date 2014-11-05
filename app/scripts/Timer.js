@@ -2,33 +2,44 @@
 	'use strict';
 
 	function Timer(name, unit) {
-		var meter = new metrics.Meter(name, unit.Rate),
+		var activeSessions = new metrics.ValueSeries(),
+			meter = new metrics.Meter(name, unit.Rate),
 			histogram = new metrics.Histogram(name, unit.Duration, true),
 			lastUpdate = null;
 
 		this.name = name;
 		this.unit = unit;
 
+		this.activeSessionsChart = new metrics.Chart({
+		    name: name + 'Active Sessions',
+		    unit: 'sessions',
+		    options: { yaxis: { min: 0 } }
+		});
+
 		this.update = function (value, time) {
+		    activeSessions.push(value.ActiveSessions);
 			meter.update(value ? value.Rate : undefined);
 			histogram.update( value ? value.Histogram : undefined);
 
 			if (value !== undefined) {
 				lastUpdate = time;
 			}
+
+			this.activeSessionsChart.updateValues(activeSessions);
 		};
 
 		this.getCharts = function () {
-			return _(meter.getCharts()).union(histogram.getCharts()).value();
+			return _(meter.getCharts()).union(histogram.getCharts()).union([this.activeSessionsChart]).value();
 		};
 
 		this.toggle = function (value) {
+		    this.activeSessionsChart.toggle(value);
 			meter.toggle(value);
 			histogram.toggle(value);
 		};
 
 		this.isVisible = function () {
-			return meter.isVisible() || histogram.isVisible();
+			return this.activeSessionsChart.visible || meter.isVisible() || histogram.isVisible();
 		};
 	}
 
