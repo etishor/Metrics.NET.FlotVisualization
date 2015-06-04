@@ -40,9 +40,7 @@
 		}
 
 		function initialSetup() {
-			if (!config.chartState) {
-				self.showAll(timers);
-			} else {
+		    if (config.chartState){
 				_(config.chartState).each(function (s) {
 					_(charts).where(function (c) {
 						return c.name === s.name && c.unit === s.unit;
