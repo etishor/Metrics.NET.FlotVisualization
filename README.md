@@ -8,14 +8,14 @@ Metrics.NET.FlotVisualization
 
 JavaScript visualization app for [Metrics.NET](https://github.com/etishor/Metrics.NET) based on the excelent charting capabilities of [FlotCharts](http://www.flotcharts.org/)
 
-###What is it
+### What is it
 FlotVisualization is a web based, client side javascript application. It provides charts based on the data exposed by the [Metrics.NET](https://github.com/etishor/Metrics.NET) library.
 
 This javascript application is embedded  in the Metrics.NET core library as a html page in which external resources (css,js) have been embedded.
 
 The app is built on top of [angularjs](http://angularjs.org/) and uses [FlotCharts](http://www.flotcharts.org/) to render charts.
 
-###How to build
+### How to build
 
 FlotVisualization is developed with grunt & bower. 
 
@@ -35,9 +35,9 @@ You also need to edit app\index.html to specify the path to the metrics endpoint
     <script>window.metricsEndpoint = 'http://localhost:1234/json';</script>
 ```
 
-###Sample
+### Sample
 
 ![Sample Visualization](https://raw.githubusercontent.com/etishor/Metrics.NET.FlotVisualization/master/sample.png)
 
-###License
+### License
 This application is released under Apache 2.0 License ( see LICENSE ) Copyright (c) 2014 Iulian Margarintescu
